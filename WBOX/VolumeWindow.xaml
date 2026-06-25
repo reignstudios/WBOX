@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="Volume" Width="100" Height="34" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Topmost="True">
     <Grid>
-		<TextBlock Text="Volume" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+		<TextBlock Text="Volume" Foreground="Gray" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 		<ProgressBar x:Name="volumeBar" Value="50" Height="10" Margin="4,20,4,0" VerticalAlignment="Top"/>
 	</Grid>
 </Window>

@@ -173,30 +173,66 @@ namespace WBOX
 
         private void WindowsStoreButton_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start(new ProcessStartInfo
+            try
             {
-                FileName = "ms-windows-store:",
-                UseShellExecute = true
-            });
+                Process.Start("ms-windows-store:");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void WindowsSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start("ms-settings:");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void DesktopButton_Click(object sender, RoutedEventArgs e)
         {
-            DisableGameModeButton_Click(null, null);
-            System.Threading.Thread.Sleep(1000);
-            Process.Start("explorer.exe");
-            Close();
+            try
+            {
+                DisableGameModeButton_Click(null, null);
+                System.Threading.Thread.Sleep(1000);
+                Process.Start("explorer.exe");
+                Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void FileExplorerButton_Click(object sender, RoutedEventArgs e)
         {
-            string path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            Process.Start("explorer.exe", $"/e,\"{path}\"");
+            try
+            {
+                string path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                Process.Start("explorer.exe", $"/e,\"{path}\"");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void TaskManagerButton_Click(object sender, RoutedEventArgs e)
         {
-            Process.Start("taskmgr.exe");
+            try
+            {
+                Process.Start("taskmgr.exe");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void SleepButton_Click(object sender, RoutedEventArgs e)

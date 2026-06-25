@@ -24,12 +24,13 @@
             <Separator Margin="4"/>
             <Button Content="Steam" Margin="4" Click="SteamButton_Click"/>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-				<CheckBox x:Name="steamWindowedCheckbox" Content="Windowed" Margin="4,0"/>
-				<CheckBox x:Name="steamOptimizedCheckbox" Content="Optimized" Margin="4,0"/>
-				<CheckBox x:Name="steamBorderlessCheckbox" Content="Borderless Games" Margin="4,0"/>
+				<CheckBox x:Name="steamOptimizedCheckbox" Content="Optimized" Margin="4,0" ToolTip="Runs Steam with '-no-browser' arg"/>
+				<CheckBox x:Name="steamWindowedCheckbox" Content="Windowed" Margin="4,0" ToolTip="Runs Steam with '-windowed' arg, otherwise '-bigpicture'"/>
+				<CheckBox x:Name="steamBorderlessCheckbox" Content="Borderless" Margin="4,0" ToolTip="Runs Steam with '-noborder' arg"/>
 			</StackPanel>
             <Separator Margin="4"/>
 			<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
+			<Button Content="Windows Settings" Margin="4" Click="WindowsSettingsButton_Click"/>
             <Button Content="Desktop" Margin="4" Click="DesktopButton_Click"/>
             <Button Content="File Explorer" Margin="4" Click="FileExplorerButton_Click"/>
             <Button Content="Task Manager" Margin="4" Click="TaskManagerButton_Click"/>
@@ -41,5 +42,7 @@
             <Button Content="Enable Game Mode (Reboot)" Margin="4" Click="EnableGameModeButton_Click"/>
             <Button Content="Disable Game Mode (Reboot)" Margin="4" Click="DisableGameModeButton_Click"/>
         </StackPanel>
-    </Grid>
+
+		<TextBlock Text="v0.0.0 alpha" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4"/>
+	</Grid>
 </Window>
