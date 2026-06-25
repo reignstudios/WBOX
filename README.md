@@ -4,8 +4,7 @@ This tool can significantly reduce memory (by GBs) and CPU/GPU cycles for games<
 You can use this with any Windows flavor like Tiny10 or Tiny11 as well.<br>
 Bypass explorer and even Win11 Xbox mode bloat if you only care about Steam for example.<br>
 
-Currently this is considered alpha BUT Steam is fully working.<br>
-The plan is to allow you to run other non-Steam games/apps/launchers as well.
+Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA & Battlenet should work.
 
 ## How to use
 * Download and Install
