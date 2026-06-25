@@ -18,6 +18,7 @@ using System.Windows.Threading;
 using Microsoft.Win32;
 using System.Windows.Interop;
 using System.ComponentModel;
+using System.Windows.Media.Animation;
 
 namespace WBOX
 {
@@ -31,6 +32,8 @@ namespace WBOX
         public MainWindow()
         {
             InitializeComponent();
+            logoImage.Visibility = Visibility.Visible;
+            FadeOutAndHide(logoImage, 1.0);
 
             // watch for app activity
             timer = new DispatcherTimer();
@@ -46,6 +49,25 @@ namespace WBOX
             //var winApps = Apps.GetWinApps();
             //var storeApps = Apps.GetStoreApps();
             //var app = storeApps.FirstOrDefault(x => x.Name.ToLower().Contains("codex"));
+        }
+
+        public async void FadeOutAndHide(UIElement element, double seconds = 0.5)
+        {
+            var animation = new DoubleAnimation
+            {
+                From = element.Opacity,
+                To = 0.0,
+                Duration = TimeSpan.FromSeconds(seconds),
+                FillBehavior = FillBehavior.Stop
+            };
+
+            animation.Completed += (object sender, EventArgs e) =>
+            {
+                element.Opacity = 0.0;
+                element.Visibility = Visibility.Hidden;
+            };
+
+            element.BeginAnimation(UIElement.OpacityProperty, animation);
         }
 		
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
