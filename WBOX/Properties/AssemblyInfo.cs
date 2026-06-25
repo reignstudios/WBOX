@@ -48,5 +48,10 @@ using System.Windows;
 //      Build Number
 //      Revision
 //
-[assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyVersion(VersionInfo.version)]
+[assembly: AssemblyFileVersion(VersionInfo.version)]
+
+static class VersionInfo
+{
+    public const string version = "0.1.0";
+}

@@ -5,45 +5,62 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WBOX"
         mc:Ignorable="d"
-        Title="Reign Consolizer" Height="700" Width="1024" WindowStyle="None" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        Title="Reign Consolizer" Height="800" Width="1024" WindowStyle="None" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Grid>
         <StackPanel Orientation="Vertical">
             <Grid>
                 <TextBlock Text="Default Boot" Foreground="Gray" FontSize="18" Margin="4"/>
 				<TextBlock Text="Control Center" Foreground="Gray" FontSize="24" FontWeight="Bold" Margin="4" HorizontalAlignment="Center"/>
-				<Button Content="⛭" Foreground="Gray" FontSize="24" FontWeight="Bold" Margin="225,0,0,0" Width="32" Height="32" HorizontalAlignment="Center"/>
+				<!--<Button Content="⛭" Foreground="Gray" FontSize="24" FontWeight="Bold" Margin="225,0,0,0" Width="32" Height="32" HorizontalAlignment="Center"/>-->
 				<CheckBox x:Name="autoMinCheckbox" Content="Auto Minimize" IsChecked="True" HorizontalAlignment="Right" Foreground="Gray" Margin="4,4,50,4"/>
 				<Button x:Name="minButton" Content="-" Width="32" HorizontalAlignment="Right" Margin="4" Visibility="Hidden" Click="MinButton_Click"/>
             </Grid>
             <Grid>
                 <StackPanel Orientation="Horizontal" Background="Gray">
-                    <RadioButton x:Name="defaultBoot_ControlCenter" Content="Control Center" Margin="8"/>
+					<RadioButton x:Name="defaultBoot_ControlCenter" Content="Control Center" Margin="8" IsChecked="True"/>
 					<RadioButton x:Name="defaultBoot_Steam" Content="Steam" Margin="8"/>
+					<RadioButton x:Name="defaultBoot_Playnite" Content="Playnite" Margin="8"/>
+					<RadioButton x:Name="defaultBoot_GOG" Content="GOG" Margin="8"/>
+					<RadioButton x:Name="defaultBoot_Itchio" Content="Itch.io" Margin="8"/>
+					<RadioButton x:Name="defaultBoot_Epic" Content="Epic" Margin="8"/>
+					<RadioButton x:Name="defaultBoot_Ubisoft" Content="Ubisoft" Margin="8"/>
+					<RadioButton x:Name="defaultBoot_EA" Content="EA" Margin="8"/>
+					<RadioButton x:Name="defaultBoot_Battlenet" Content="Battlenet" Margin="8"/>
 				</StackPanel>
             </Grid>
-            <Separator Margin="4"/>
-            <Button Content="Steam" Margin="4" Click="SteamButton_Click"/>
+			<Separator Margin="4"/>
+			<Button Content="Steam" Margin="4" Click="SteamButton_Click"/>
 			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-				<CheckBox x:Name="steamOptimizedCheckbox" Content="Optimized" Margin="4,0" ToolTip="Runs Steam with '-no-browser' arg"/>
+				<CheckBox x:Name="steamOptimizedCheckbox" Content="Optimized" Margin="4,0" ToolTip="Runs Steam with '-no-browser' arg" IsChecked="True"/>
 				<CheckBox x:Name="steamWindowedCheckbox" Content="Windowed" Margin="4,0" ToolTip="Runs Steam with '-windowed' arg, otherwise '-bigpicture'"/>
 				<CheckBox x:Name="steamBorderlessCheckbox" Content="Borderless" Margin="4,0" ToolTip="Runs Steam with '-noborder' arg"/>
 			</StackPanel>
+			<Button Content="Playnite" Margin="4" Click="PlayniteButton_Click"/>
+			<Button Content="GOG" Margin="4" Click="GOGButton_Click"/>
+			<Button Content="Itch.io" Margin="4" Click="ItchioButton_Click"/>
+			<Button Content="Epic" Margin="4" Click="EpicButton_Click"/>
+			<Button Content="Ubisoft" Margin="4" Click="UbisoftButton_Click"/>
+			<Button Content="EA" Margin="4" Click="EAButton_Click"/>
+			<Button Content="Battlenet" Margin="4" Click="BattlenetButton_Click"/>
             <Separator Margin="4"/>
-			<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
-			<Button Content="Windows Settings" Margin="4" Click="WindowsSettingsButton_Click"/>
+			<!--<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
+			<Button Content="Windows Settings" Margin="4" Click="WindowsSettingsButton_Click"/>-->
             <Button Content="Desktop" Margin="4" Click="DesktopButton_Click"/>
             <Button Content="File Explorer" Margin="4" Click="FileExplorerButton_Click"/>
             <Button Content="Task Manager" Margin="4" Click="TaskManagerButton_Click"/>
             <Separator Margin="4"/>
-            <Button Content="Sleep" Margin="4" Click="SleepButton_Click"/>
-            <Button Content="Reboot" Margin="4" Click="RebootButton_Click"/>
-            <Button Content="Shutdown" Margin="4" Click="ShutdownButton_Click"/>
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button Content="Sleep" Width="200" Margin="4" Click="SleepButton_Click"/>
+				<Button Content="Reboot" Width="200" Margin="4" Click="RebootButton_Click"/>
+				<Button Content="Shutdown" Width="200" Margin="4" Click="ShutdownButton_Click"/>
+			</StackPanel>
             <Separator Margin="4"/>
-            <Button Content="Enable Game Mode (Reboot)" Margin="4" Click="EnableGameModeButton_Click"/>
-            <Button Content="Disable Game Mode (Reboot)" Margin="4" Click="DisableGameModeButton_Click"/>
+			<Separator Margin="4"/>
+            <Button Content="Enable Game Mode" Margin="4" Click="EnableGameModeButton_Click"/>
+            <Button Content="Disable Game Mode" Margin="4" Click="DisableGameModeButton_Click"/>
         </StackPanel>
 
 		<Image x:Name="logoImage" Source="/Logo.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
-		<TextBlock Text="v0.0.0 alpha" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Foreground="Gray"/>
+		<TextBlock x:Name="versionText" Text="v0.0.0 alpha" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Foreground="Gray"/>
 	</Grid>
 </Window>

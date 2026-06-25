@@ -12,15 +12,33 @@ echo "Init (Do not close this Window)"
 :: :main
 
 :: Min bat window
-if not "%~1"=="minimized" (
-    start "" /min "%~f0" minimized
-    exit
-)
+:: if not "%~1"=="minimized" (
+::     start "" /min "%~f0" minimized
+::     exit
+:: )
 
 :: Relaunch loop
+:: :loop
+:: echo "Launching Control Center..."
+:: "D:\Dev\Reign\WBOX\WBOX\bin\Debug\WBOX.exe"
+:: echo "Control Center quit (will relaunch)"
+:: timeout /t 2 >nul
+:: goto loop
+
+:: Launch Explorer hidden
+setlocal
+echo "Launching Explorer...
+start /min explorer.exe
+
+:: Wait for Explorer boot
+timeout /t 10 /nobreak >nul
+
+:: Launch WBOX
+echo "Launching WBOX...
+start "D:\Dev\Reign\WBOX\WBOX\bin\Debug\WBOX.exe"
+
+:: Keep this bat task alive
 :loop
-echo "Launching Control Center..."
-"C:\Dev\WBOX\WBOX\bin\Debug\WBOX.exe"
-echo "Control Center quit (will relaunch)"
-timeout /t 2 >nul
+timeout /t 60 >nul
 goto loop
+endlocal
