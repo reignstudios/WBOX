@@ -10,6 +10,7 @@ The plan is to allow you to run other non-Steam games/apps/launchers as well.
 * Download and Install
 * Click "Enable Game Mode" (This will modify a single reg value and reboot)
 * NOTE: If the app fails to run you may need to disable "Smart App Control"
+* You can config Windows to skip login etc (DIY in these areas)
 
 ### Other info
 The reg value changed is "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell" (yes thats it)<br>
