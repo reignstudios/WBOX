@@ -7,8 +7,7 @@ Currently this is considered alpha BUT Steam is fully working.<br>
 The plan is to allow you to run other non-Steam games/apps/launchers as well.
 
 ## How to use
-* Place the files in a place where you will not move them
-* Run WBOX.exe
+* Download and Install
 * Click "Enable Game Mode" (This will modify a single reg value and reboot)
 * NOTE: If the app fails to run you may need to disable "Smart App Control"
 
