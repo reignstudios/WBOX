@@ -51,8 +51,6 @@ namespace WBOX
 		private static void InitShow(float volume)
 		{
 			if (instance == null || instance.isClosed) instance = new VolumeWindow();
-			if (instance.Owner == null) instance.Owner = MainWindow.Instance;
-
 			instance.canClose = false;
 			if (volume >= 0)
 			{

@@ -58,6 +58,7 @@
 			<Separator Margin="4"/>
             <Button Content="Enable Game Mode" Margin="4" Click="EnableGameModeButton_Click"/>
             <Button Content="Disable Game Mode" Margin="4" Click="DisableGameModeButton_Click"/>
+			<Button Content="Auto Login Manager" Margin="4" Click="AutoLoginManagerButton_Click"/>
         </StackPanel>
 
 		<Image x:Name="logoImage" Source="/Logo.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>

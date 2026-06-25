@@ -155,8 +155,12 @@ namespace WBOX
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             if (keyboardHook != null) keyboardHook.Dispose();
+            SaveSettings();
+        }
 
-            // save settings
+		private void SaveSettings()
+		{
+			// save settings
             if (defaultBoot_ControlCenter.IsChecked == true) settings.DefaultBoot = AppSettings.DefaultBoot_ControlCenter;
             else if (defaultBoot_Steam.IsChecked == true) settings.DefaultBoot = AppSettings.DefaultBoot_Steam;
             else if (defaultBoot_Playnite.IsChecked == true) settings.DefaultBoot = AppSettings.DefaultBoot_Playnite;
@@ -172,9 +176,9 @@ namespace WBOX
             settings.SteamBorderless = steamBorderlessCheckbox.IsChecked == true;
 
             Settings.Save(settings);
-        }
+		}
 
-        private void Timer_Tick(object sender, EventArgs e)
+		private void Timer_Tick(object sender, EventArgs e)
         {
             if (string.IsNullOrEmpty(watchedProcessName)) return;
 
@@ -490,6 +494,7 @@ namespace WBOX
 
         private void SleepButton_Click(object sender, RoutedEventArgs e)
         {
+            SaveSettings();
             try
             {
                 if (!Power.SetSuspendState(false, false, false))
@@ -508,6 +513,7 @@ namespace WBOX
 
         private void RebootButton_Click(object sender, RoutedEventArgs e)
         {
+            SaveSettings();
             try
             {
                 Process.Start("shutdown", "/r /t 0");
@@ -520,6 +526,7 @@ namespace WBOX
 
         private void ShutdownButton_Click(object sender, RoutedEventArgs e)
         {
+            SaveSettings();
             try
             {
                 Process.Start("shutdown", "/s /t 0");
@@ -572,6 +579,13 @@ namespace WBOX
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+
+        private void AutoLoginManagerButton_Click(object sender, RoutedEventArgs e)
+        {
+            var manager = new AutoLoginManager();
+            manager.Owner = this;
+            manager.ShowDialog();
         }
 
         private void MinButton_Click(object sender, RoutedEventArgs e)

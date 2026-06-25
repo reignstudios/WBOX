@@ -139,12 +139,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AutoLoginManager.xaml.cs">
+      <DependentUpon>AutoLoginManager.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ProcessUtil.cs" />
+    <Compile Include="Reg.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="VolumeWindow.xaml.cs">
       <DependentUpon>VolumeWindow.xaml</DependentUpon>
     </Compile>
+    <Page Include="AutoLoginManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
