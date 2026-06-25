@@ -15,7 +15,7 @@ The plan is to allow you to run other non-Steam games/apps/launchers as well.
 
 ### Other info
 The reg value changed is "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell" (yes thats it)<br>
-If you ever need to manually revert simply do these steps
+If you ever need to manually revert simply do these steps (but Control Center does it for you)
 * Open Task-Manager (can be done with Ctrl+Alt+Del)
 * Click "Run new task" and enter "regedit"
 * Navigate to the "Shell" key listed above and change it to explorer.exe
