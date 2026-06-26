@@ -11,6 +11,7 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA & Battlenet should work.
 * Click "Enable Game Mode" (This will modify a single reg value and reboot)
 * NOTE: If the app fails to run you may need to disable "Smart App Control"
 * You can config Windows to skip login etc (DIY in these areas)
+* Steams Left/Right menus can be opened by holding Back/Select button then tapping Left/Right Bumper
 
 ### Other info
 The reg value changed is "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell" (yes thats it)<br>

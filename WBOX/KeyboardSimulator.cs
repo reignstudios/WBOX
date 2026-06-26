@@ -12,8 +12,13 @@ namespace WBOX
         [DllImport("user32.dll", SetLastError = true)]
         public static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
 
+        public const ushort VK_1 = 0x31;
         public const ushort VK_2 = 0x32;
         public const ushort VK_LCONTROL = 0xA2;
+
+        public const ushort SC_1 = 0x02;
+        public const ushort SC_2 = 0x03;
+        public const ushort SC_LCONTROL = 0x1D;
 
         public static void KeyDown(ushort virtualKey, bool extended = false)
         {
@@ -39,20 +44,62 @@ namespace WBOX
         // Virtual Key Codes: https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
         public static void PressKey(ushort virtualKey, bool extended = false)
         {
-            var inputs = new INPUT[2];
+            var input = new INPUT[2];
 
             // Key down
-            inputs[0].type = InputType.INPUT_KEYBOARD;
-            inputs[0].U.ki.wVk = virtualKey;
-            if (extended) inputs[0].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+            input[0].type = InputType.INPUT_KEYBOARD;
+            input[0].U.ki.wVk = virtualKey;
+            if (extended) input[0].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
 
             // Key up
-            inputs[1].type = InputType.INPUT_KEYBOARD;
-            inputs[1].U.ki.wVk = virtualKey;
-            inputs[1].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_KEYUP;
-            if (extended) inputs[1].U.ki.dwFlags |= KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+            input[1].type = InputType.INPUT_KEYBOARD;
+            input[1].U.ki.wVk = virtualKey;
+            input[1].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_KEYUP;
+            if (extended) input[1].U.ki.dwFlags |= KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
 
-            SendInput((uint)inputs.Length, inputs, INPUT.Size);
+            SendInput((uint)input.Length, input, INPUT.Size);
+        }
+
+        public static void KeyDownScan(ushort scanKey, bool extended = false)
+        {
+            INPUT[] input = new INPUT[1];
+            input[0].type = InputType.INPUT_KEYBOARD;
+            input[0].U.ki.wScan = scanKey;
+            input[0].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_SCANCODE;
+            if (extended) input[0].U.ki.dwFlags |= KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+
+            SendInput(1, input, INPUT.Size);
+        }
+
+        public static void KeyUpScan(ushort scanKey, bool extended = false)
+        {
+            INPUT[] input = new INPUT[1];
+            input[0].type = InputType.INPUT_KEYBOARD;
+            input[0].U.ki.wScan = scanKey;
+            input[0].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_KEYUP | KeyEventFlags.KEYEVENTF_SCANCODE;
+            if (extended) input[0].U.ki.dwFlags |= KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+
+            SendInput(1, input, INPUT.Size);
+        }
+
+        // Virtual Key Codes: https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+        public static void PressKeyScan(ushort scanKey, bool extended = false)
+        {
+            var input = new INPUT[2];
+
+            // Key down
+            input[0].type = InputType.INPUT_KEYBOARD;
+            input[0].U.ki.wScan = scanKey;
+            input[0].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_SCANCODE;
+            if (extended) input[0].U.ki.dwFlags |= KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+
+            // Key up
+            input[1].type = InputType.INPUT_KEYBOARD;
+            input[1].U.ki.wScan = scanKey;
+            input[1].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_KEYUP | KeyEventFlags.KEYEVENTF_SCANCODE;
+            if (extended) input[1].U.ki.dwFlags |= KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+
+            SendInput((uint)input.Length, input, INPUT.Size);
         }
 
         public static void SendText(string text)

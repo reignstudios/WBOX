@@ -28,6 +28,7 @@ namespace WBOX
     {
         public static MainWindow Instance { get; private set; }
         private AppSettings settings;
+        private bool isDesktopMode;
 
         private Process watchedProcess;
         private string watchedProcessName;
@@ -50,6 +51,9 @@ namespace WBOX
             steamWindowedCheckbox.IsChecked = settings.SteamWindowed;
             steamBorderlessCheckbox.IsChecked = settings.SteamBorderless;
 
+            // check desktop mode
+            isDesktopMode = Process.GetProcessesByName("explorer").Length != 0;
+
             // intro logo
             if (settings.DefaultBoot == AppSettings.DefaultBoot_ControlCenter)
             {
@@ -59,46 +63,46 @@ namespace WBOX
             }
             else
             {
-                WindowState = WindowState.Minimized;
+                if (!isDesktopMode) WindowState = WindowState.Minimized;
                 if (settings.DefaultBoot == AppSettings.DefaultBoot_Steam)
                 {
                     defaultBoot_Steam.IsChecked = true;
-                    SteamButton_Click(null, null);
+                    if (!isDesktopMode) SteamButton_Click(null, null);
                 }
                 else if (settings.DefaultBoot == AppSettings.DefaultBoot_Playnite)
                 {
                     defaultBoot_Playnite.IsChecked = true;
-                    PlayniteButton_Click(null, null);
+                    if (!isDesktopMode) PlayniteButton_Click(null, null);
                 }
                 else if (settings.DefaultBoot == AppSettings.DefaultBoot_GOG)
                 {
                     defaultBoot_GOG.IsChecked = true;
-                    GOGButton_Click(null, null);
+                    if (!isDesktopMode) GOGButton_Click(null, null);
                 }
                 else if (settings.DefaultBoot == AppSettings.DefaultBoot_Itchio)
                 {
                     defaultBoot_Itchio.IsChecked = true;
-                    ItchioButton_Click(null, null);
+                    if (!isDesktopMode) ItchioButton_Click(null, null);
                 }
                 else if (settings.DefaultBoot == AppSettings.DefaultBoot_Epic)
                 {
                     defaultBoot_Epic.IsChecked = true;
-                    EpicButton_Click(null, null);
+                    if (!isDesktopMode) EpicButton_Click(null, null);
                 }
                 else if (settings.DefaultBoot == AppSettings.DefaultBoot_Ubisoft)
                 {
                     defaultBoot_Ubisoft.IsChecked = true;
-                    UbisoftButton_Click(null, null);
+                    if (!isDesktopMode) UbisoftButton_Click(null, null);
                 }
                 else if (settings.DefaultBoot == AppSettings.DefaultBoot_EA)
                 {
                     defaultBoot_EA.IsChecked = true;
-                    EAButton_Click(null, null);
+                    if (!isDesktopMode) EAButton_Click(null, null);
                 }
                 else if (settings.DefaultBoot == AppSettings.DefaultBoot_Battlenet)
                 {
                     defaultBoot_Battlenet.IsChecked = true;
-                    BattlenetButton_Click(null, null);
+                    if (!isDesktopMode) BattlenetButton_Click(null, null);
                 }
             }
 
@@ -150,14 +154,23 @@ namespace WBOX
                 {
                     if (!device.connected) continue;
 
-                    if (device.Back.on && device.Menu.up)
+                    if (device.Back.on)
                     {
-                        Debug.WriteLine("Trigger Steam event");
-                        KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LCONTROL);
-                        Thread.Sleep(100);
-                        KeyboardSimulator.PressKey(KeyboardSimulator.VK_2);
-                        Thread.Sleep(100);
-                        KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LCONTROL);
+                        // use scan keys at Steam uses HID
+                        if (device.BumperLeft.down)
+                        {
+                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                            KeyboardSimulator.PressKeyScan(KeyboardSimulator.SC_1);
+                            Thread.Sleep(100);
+                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
+                        }
+                        else if (device.BumperRight.down)
+                        {
+                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                            KeyboardSimulator.PressKeyScan(KeyboardSimulator.SC_2);
+                            Thread.Sleep(100);
+                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
+                        }
                     }
 
                     // virtual mouse
