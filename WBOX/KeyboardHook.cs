@@ -9,7 +9,7 @@ using System.Windows.Input;
 
 namespace WBOX
 {
-    public class GlobalKeyboardHook : IDisposable
+    public class KeyboardHook : IDisposable
     {
         private const int WH_KEYBOARD_LL = 13;
         private const int WM_KEYDOWN = 0x0100;
@@ -20,7 +20,7 @@ namespace WBOX
 
         public event EventHandler<KeyEventArgs> OnKeyPressed;
 
-        public GlobalKeyboardHook()
+        public KeyboardHook()
         {
             _proc = HookCallback;
             _hookId = SetHook(_proc);

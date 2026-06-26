@@ -41,6 +41,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -50,6 +51,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>62A54A553B86861C76EE9A68BB28C026D3BA0640</ManifestCertificateThumbprint>
@@ -142,6 +144,9 @@
     <Compile Include="AutoLoginManager.xaml.cs">
       <DependentUpon>AutoLoginManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Gamepad.cs" />
+    <Compile Include="KeyboardSimulator.cs" />
+    <Compile Include="MouseSimulator.cs" />
     <Compile Include="ProcessUtil.cs" />
     <Compile Include="Reg.cs" />
     <Compile Include="Settings.cs" />
@@ -163,7 +168,7 @@
     </Compile>
     <Compile Include="Apps.cs" />
     <Compile Include="Audio.cs" />
-    <Compile Include="Keys.cs" />
+    <Compile Include="KeyboardHook.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

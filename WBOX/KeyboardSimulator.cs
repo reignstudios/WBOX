@@ -1,0 +1,130 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace WBOX
+{
+	static class KeyboardSimulator
+	{
+        [DllImport("user32.dll", SetLastError = true)]
+        public static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
+
+        public const ushort VK_2 = 0x32;
+        public const ushort VK_LCONTROL = 0xA2;
+
+        public static void KeyDown(ushort virtualKey, bool extended = false)
+        {
+            INPUT[] input = new INPUT[1];
+            input[0].type = InputType.INPUT_KEYBOARD;
+            input[0].U.ki.wVk = virtualKey;
+            if (extended) input[0].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+
+            SendInput(1, input, INPUT.Size);
+        }
+
+        public static void KeyUp(ushort virtualKey, bool extended = false)
+        {
+            INPUT[] input = new INPUT[1];
+            input[0].type = InputType.INPUT_KEYBOARD;
+            input[0].U.ki.wVk = virtualKey;
+            input[0].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_KEYUP;
+            if (extended) input[0].U.ki.dwFlags |= KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+
+            SendInput(1, input, INPUT.Size);
+        }
+
+        // Virtual Key Codes: https://learn.microsoft.com/en-us/windows/win32/inputdev/virtual-key-codes
+        public static void PressKey(ushort virtualKey, bool extended = false)
+        {
+            var inputs = new INPUT[2];
+
+            // Key down
+            inputs[0].type = InputType.INPUT_KEYBOARD;
+            inputs[0].U.ki.wVk = virtualKey;
+            if (extended) inputs[0].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+
+            // Key up
+            inputs[1].type = InputType.INPUT_KEYBOARD;
+            inputs[1].U.ki.wVk = virtualKey;
+            inputs[1].U.ki.dwFlags = KeyEventFlags.KEYEVENTF_KEYUP;
+            if (extended) inputs[1].U.ki.dwFlags |= KeyEventFlags.KEYEVENTF_EXTENDEDKEY;
+
+            SendInput((uint)inputs.Length, inputs, INPUT.Size);
+        }
+
+        public static void SendText(string text)
+        {
+            foreach (char c in text)
+            {
+                // For characters, you can use scan codes or Unicode, but simple keys via VK is often easier
+                ushort vk = (ushort)char.ToUpper(c); // Rough mapping for basic chars
+                PressKey(vk);
+            }
+        }
+	}
+
+    [Flags]
+    enum InputType : uint
+    {
+        INPUT_MOUSE = 0,
+        INPUT_KEYBOARD = 1,
+        INPUT_HARDWARE = 2
+    }
+
+    [Flags]
+    enum KeyEventFlags : uint
+    {
+        KEYEVENTF_EXTENDEDKEY = 0x0001,
+        KEYEVENTF_KEYUP = 0x0002,
+        KEYEVENTF_SCANCODE = 0x0008,
+        KEYEVENTF_UNICODE = 0x0004
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct INPUT
+    {
+        public InputType type;
+        public InputUnion U;
+        public static int Size => Marshal.SizeOf(typeof(INPUT));
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct MOUSEINPUT
+    {
+        public int dx;
+        public int dy;
+        public uint mouseData;
+        public uint dwFlags;
+        public uint time;
+        public IntPtr dwExtraInfo;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct HARDWAREINPUT
+    {
+        public uint uMsg;
+        public ushort wParamL;
+        public ushort wParamH;
+    }
+
+    [StructLayout(LayoutKind.Explicit)]
+    struct InputUnion
+    {
+        [FieldOffset(0)] public MOUSEINPUT mi;
+        [FieldOffset(0)] public KEYBDINPUT ki;
+        [FieldOffset(0)] public HARDWAREINPUT hi;
+    }
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct KEYBDINPUT
+    {
+        public ushort wVk;      // Virtual key code
+        public ushort wScan;    // Scan code
+        public KeyEventFlags dwFlags;
+        public uint time;
+        public IntPtr dwExtraInfo;
+    }
+}

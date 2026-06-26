@@ -20,6 +20,7 @@ using System.Windows.Interop;
 using System.ComponentModel;
 using System.Windows.Media.Animation;
 using System.IO;
+using System.Threading;
 
 namespace WBOX
 {
@@ -31,7 +32,12 @@ namespace WBOX
         private Process watchedProcess;
         private string watchedProcessName;
         private DispatcherTimer timer;
-        private GlobalKeyboardHook keyboardHook;
+        private KeyboardHook keyboardHook;
+
+        private XInputInstance xinput;
+        private Thread inputThread;
+        private bool inputThreadAlive;
+        private bool virtualMouseActive;
 
         public MainWindow()
         {
@@ -106,13 +112,68 @@ namespace WBOX
             Loaded += MainWindow_Loaded;
             Closed += MainWindow_Closed;
 
+            // init input
+            inputThreadAlive = true;
+            inputThread = new Thread(InputThread);
+            inputThread.IsBackground = true;
+            inputThread.Start();
+
             // TODO: add app list and custom launch button with custom args
             //var winApps = Apps.GetWinApps();
             //var storeApps = Apps.GetStoreApps();
             //var app = storeApps.FirstOrDefault(x => x.Name.ToLower().Contains("codex"));
         }
 
-        private void FadeOutAndHide(UIElement element, double seconds = 0.5)
+		private void InputThread()
+		{
+            // init xinput
+			try
+            {
+                xinput = new XInputInstance();
+                xinput.Init();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "XInput Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            // update
+            while (inputThreadAlive)
+            {
+                // capture at 60fps
+                Thread.Sleep(1000 / 60);
+                xinput.Update();
+
+                // check input events to relay
+                foreach (var device in xinput.devices)
+                {
+                    if (!device.connected) continue;
+
+                    if (device.Back.on && device.Menu.up)
+                    {
+                        Debug.WriteLine("Trigger Steam event");
+                        KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LCONTROL);
+                        Thread.Sleep(100);
+                        KeyboardSimulator.PressKey(KeyboardSimulator.VK_2);
+                        Thread.Sleep(100);
+                        KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LCONTROL);
+                    }
+
+                    // virtual mouse
+                    if (virtualMouseActive)
+                    {
+                        const int mouseSpeed = 10;
+                        int deltaX = (int)((device.JoystickLeft.value.x * mouseSpeed) + (device.JoystickRight.value.x * mouseSpeed));
+                        int deltaY = (int)((device.JoystickLeft.value.y * mouseSpeed) + (device.JoystickRight.value.y * mouseSpeed));
+                        MouseSimulator.MoveMouse(deltaX, -deltaY);
+                        if (device.A.down || device.BumperRight.down || device.TriggerButtonRight.down || device.BumperLeft.down || device.TriggerButtonLeft.down) MouseSimulator.LeftClick();
+                    }
+                }
+            }
+		}
+
+		private void FadeOutAndHide(UIElement element, double seconds = 0.5)
         {
             var animation = new DoubleAnimation
             {
@@ -133,7 +194,7 @@ namespace WBOX
 		
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            keyboardHook = new GlobalKeyboardHook();
+            keyboardHook = new KeyboardHook();
             keyboardHook.OnKeyPressed += (s, args) =>
             {
                 const float volumeStep = 1f / 20f;
@@ -154,6 +215,7 @@ namespace WBOX
 
         private void MainWindow_Closed(object sender, EventArgs e)
         {
+            inputThreadAlive = false;
             if (keyboardHook != null) keyboardHook.Dispose();
             SaveSettings();
         }
@@ -180,25 +242,29 @@ namespace WBOX
 
 		private void Timer_Tick(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(watchedProcessName)) return;
+            // only enable virtual mouse when we're in focus
+            virtualMouseActive = IsActive && WindowState == WindowState.Maximized;
 
-            // lazy watch for steam state
-            var processes = Process.GetProcessesByName(watchedProcessName);
-            bool isAlive = processes != null && processes.Length > 0;
-            if (isAlive)
+            // lazy watch for app state
+            if (!string.IsNullOrEmpty(watchedProcessName))
             {
-                if (WindowState != WindowState.Minimized)
+                var processes = Process.GetProcessesByName(watchedProcessName);
+                bool isAlive = processes != null && processes.Length > 0;
+                if (isAlive)
                 {
-                    if (autoMinCheckbox.IsChecked == true) WindowState = WindowState.Minimized;
-                    minButton.Visibility = Visibility.Visible;
+                    if (WindowState != WindowState.Minimized)
+                    {
+                        if (autoMinCheckbox.IsChecked == true) WindowState = WindowState.Minimized;
+                        minButton.Visibility = Visibility.Visible;
+                    }
                 }
-            }
-            else
-            {
-                if (WindowState != WindowState.Maximized)
+                else
                 {
-                    WindowState = WindowState.Maximized;
-                    minButton.Visibility = Visibility.Hidden;
+                    if (WindowState != WindowState.Maximized)
+                    {
+                        WindowState = WindowState.Maximized;
+                        minButton.Visibility = Visibility.Hidden;
+                    }
                 }
             }
         }
