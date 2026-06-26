@@ -38,7 +38,8 @@ namespace WBOX
 
 		private void SetAutoLogin(bool enable)
 		{
-			Reg.SetStringValue(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", "AutoAdminLogon", enable ? "1" : "0");
+			Reg.SetStringValue(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", "AutoAdminLogon", enable ? "1" : "0");// enable auto login
+			Reg.SetStringValue(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "DisableAutomaticRestartSignOn", enable ? "1" : "0");// enable auto login after sleep
 			Reg.SetStringValue(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", "DefaultUserName", enable ? usernameText.Text : "");
 			Reg.SetStringValue(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", "DefaultPassword", enable ? passwordText.Password : "");
 			Close();
