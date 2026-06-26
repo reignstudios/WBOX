@@ -53,5 +53,5 @@ using System.Windows;
 
 static class VersionInfo
 {
-    public const string version = "0.3.2";
+    public const string version = "0.3.3";
 }
