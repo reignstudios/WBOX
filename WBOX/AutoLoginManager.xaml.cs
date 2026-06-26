@@ -23,6 +23,7 @@ namespace WBOX
 		public AutoLoginManager()
 		{
 			InitializeComponent();
+			usernameText.Text = Environment.UserName;
 		}
 
 		private void EnableButton_Click(object sender, RoutedEventArgs e)

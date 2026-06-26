@@ -536,9 +536,9 @@ namespace WBOX
             try
             {
                 DisableGameModeButton_Click(null, null);
-                System.Threading.Thread.Sleep(1000);
+                Thread.Sleep(1000);
                 Process.Start("explorer.exe");
-                Close();
+                WindowState = WindowState.Minimized;
             }
             catch (Exception ex)
             {
