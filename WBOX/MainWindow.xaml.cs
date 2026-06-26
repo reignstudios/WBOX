@@ -160,6 +160,7 @@ namespace WBOX
                         if (device.BumperLeft.down)
                         {
                             KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                            Thread.Sleep(100);
                             KeyboardSimulator.PressKeyScan(KeyboardSimulator.SC_1);
                             Thread.Sleep(100);
                             KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
@@ -167,6 +168,7 @@ namespace WBOX
                         else if (device.BumperRight.down)
                         {
                             KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                            Thread.Sleep(100);
                             KeyboardSimulator.PressKeyScan(KeyboardSimulator.SC_2);
                             Thread.Sleep(100);
                             KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
@@ -538,7 +540,7 @@ namespace WBOX
                 DisableGameModeButton_Click(null, null);
                 Thread.Sleep(1000);
                 Process.Start("explorer.exe");
-                WindowState = WindowState.Minimized;
+                Close();
             }
             catch (Exception ex)
             {
@@ -624,7 +626,7 @@ namespace WBOX
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = "reg.exe",
-                    Arguments = $@"add ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v Shell /t REG_SZ /d ""{shellValue}"" /f",//Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell
+                    Arguments = $@"add ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v Shell /t REG_SZ /d ""{shellValue}"" /f",//Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
                     Verb = "runas",
                     UseShellExecute = true,
                     CreateNoWindow = false
@@ -646,7 +648,7 @@ namespace WBOX
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = "reg.exe",
-                    Arguments = $@"add ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v Shell /t REG_SZ /d ""{shellValue}"" /f",//Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell
+                    Arguments = $@"add ""HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"" /v Shell /t REG_SZ /d ""{shellValue}"" /f",//Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon
                     Verb = "runas",
                     UseShellExecute = true,
                     CreateNoWindow = false
