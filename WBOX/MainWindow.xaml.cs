@@ -159,17 +159,29 @@ namespace WBOX
                         // use scan keys at Steam uses HID
                         if (device.BumperLeft.down)
                         {
-                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                            /*KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
                             Thread.Sleep(100);
-                            KeyboardSimulator.PressKeyScan(KeyboardSimulator.SC_1);
+                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_1);
                             Thread.Sleep(100);
-                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
+                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_1);
+                            Thread.Sleep(100);
+                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);*/
+
+                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LSHIFT);
+                            Thread.Sleep(100);
+                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_TAB);
+                            Thread.Sleep(100);
+                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_TAB);
+                            Thread.Sleep(100);
+                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LSHIFT);
                         }
                         else if (device.BumperRight.down)
                         {
                             KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
                             Thread.Sleep(100);
-                            KeyboardSimulator.PressKeyScan(KeyboardSimulator.SC_2);
+                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_2);
+                            Thread.Sleep(100);
+                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_2);
                             Thread.Sleep(100);
                             KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
                         }

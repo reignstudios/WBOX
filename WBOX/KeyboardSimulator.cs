@@ -15,10 +15,14 @@ namespace WBOX
         public const ushort VK_1 = 0x31;
         public const ushort VK_2 = 0x32;
         public const ushort VK_LCONTROL = 0xA2;
+        public const ushort VK_LSHIFT = 0xA0;
+        public const ushort VK_TAB = 0x09;
 
         public const ushort SC_1 = 0x02;
         public const ushort SC_2 = 0x03;
         public const ushort SC_LCONTROL = 0x1D;
+        public const ushort SC_LSHIFT = 0x2A;
+        public const ushort SC_TAB = 0x0F;
 
         public static void KeyDown(ushort virtualKey, bool extended = false)
         {
