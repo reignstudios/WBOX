@@ -104,6 +104,11 @@ namespace WBOX
                     defaultBoot_Battlenet.IsChecked = true;
                     if (!isDesktopMode) BattlenetButton_Click(null, null);
                 }
+                else if (settings.DefaultBoot == AppSettings.DefaultBoot_Polymega)
+                {
+                    defaultBoot_Polymega.IsChecked = true;
+                    if (!isDesktopMode) PolymegaButton_Click(null, null);
+                }
             }
 
             // watch for app activity
@@ -259,6 +264,7 @@ namespace WBOX
             else if (defaultBoot_Ubisoft.IsChecked == true) settings.DefaultBoot = AppSettings.DefaultBoot_Ubisoft;
             else if (defaultBoot_EA.IsChecked == true) settings.DefaultBoot = AppSettings.DefaultBoot_EA;
             else if (defaultBoot_Battlenet.IsChecked == true) settings.DefaultBoot = AppSettings.DefaultBoot_Battlenet;
+            else if (defaultBoot_Polymega.IsChecked == true) settings.DefaultBoot = AppSettings.DefaultBoot_Polymega;
 
             settings.SteamOptimized = steamOptimizedCheckbox.IsChecked == true;
             settings.SteamWindowed = steamWindowedCheckbox.IsChecked == true;
@@ -306,7 +312,8 @@ namespace WBOX
                 {
                     FileName = path,
                     Arguments = args,
-                    UseShellExecute = true
+                    UseShellExecute = true,
+                    WorkingDirectory = System.IO.Path.GetDirectoryName(path)
                 };
                 watchedProcess = new Process { StartInfo = startInfo };
                 watchedProcess.EnableRaisingEvents = true;
@@ -320,6 +327,7 @@ namespace WBOX
             }
             catch (Exception ex)
             {
+                watchedProcessName = null;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -519,6 +527,26 @@ namespace WBOX
 
             // launch
             LaunchGameApp(installPath, "", "Battle.net");
+        }
+
+        private void PolymegaButton_Click(object sender, RoutedEventArgs e)
+        {
+            // get install path
+            string installPath = @"C:\Program Files\Polymega\PolymegaApp.exe";// default to typical
+            using (var key = Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Polymega"))
+            {
+                if (key != null)
+                {
+                    var value = key.GetValue("UninstallString") as string;
+                    if (!string.IsNullOrEmpty(value))
+                    {
+                        installPath = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(value), "PolymegaApp.exe");
+                    }
+                }
+            }
+
+            // launch
+            LaunchGameApp(installPath, "", "PolymegaApp");
         }
 
         /*private void WindowsStoreButton_Click(object sender, RoutedEventArgs e)

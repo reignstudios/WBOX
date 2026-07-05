@@ -19,6 +19,7 @@ namespace WBOX
 		public const string DefaultBoot_Ubisoft = "Ubisoft";
 		public const string DefaultBoot_EA = "EA";
 		public const string DefaultBoot_Battlenet = "Battlenet";
+		public const string DefaultBoot_Polymega = "Polymega";
 
 		public string DefaultBoot { get; set; }
 		public bool SteamOptimized { get; set; }

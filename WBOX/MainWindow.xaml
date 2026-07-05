@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WBOX"
         mc:Ignorable="d"
-        Title="Reign Consolizer" Height="800" Width="1024" WindowStyle="None" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        Title="Reign Consolizer" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Grid>
 		<Grid Margin="0,0,0,0" VerticalAlignment="Top" Height="50">
 			<TextBlock Text="Default Boot" Foreground="Gray" FontSize="18" Margin="4"/>
@@ -26,6 +26,7 @@
 				<RadioButton x:Name="defaultBoot_Ubisoft" Content="Ubisoft" Margin="8"/>
 				<RadioButton x:Name="defaultBoot_EA" Content="EA" Margin="8"/>
 				<RadioButton x:Name="defaultBoot_Battlenet" Content="Battlenet" Margin="8"/>
+				<RadioButton x:Name="defaultBoot_Polymega" Content="Polymega" Margin="8"/>
 			</StackPanel>
 		</Grid>
 
@@ -44,6 +45,7 @@
 				<Button Content="Ubisoft" Margin="4" Click="UbisoftButton_Click"/>
 				<Button Content="EA" Margin="4" Click="EAButton_Click"/>
 				<Button Content="Battlenet" Margin="4" Click="BattlenetButton_Click"/>
+				<Button Content="Polymega" Margin="4" Click="PolymegaButton_Click"/>
 				<Separator Margin="4"/>
 				<!--<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
 				<Button Content="Windows Settings" Margin="4" Click="WindowsSettingsButton_Click"/>-->
