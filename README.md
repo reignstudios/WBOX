@@ -12,6 +12,7 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA & Battlenet should work.
 * NOTE: If the app fails to run you may need to disable "Smart App Control"
 * You can config Windows to skip login etc
 * Steam App Left/Right menus can be opened by holding Back/Select button then tapping Left/Right Bumper
+* In Control-Center, you can use a Gamepad to navigate
 
 ### Other info
 The reg value changed is "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell" (yes thats it)<br>
