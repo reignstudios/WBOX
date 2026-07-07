@@ -4,7 +4,7 @@ This tool can significantly reduce memory (by GBs) and CPU/GPU cycles for games<
 You can use this with any Windows flavor like Tiny10 or Tiny11 as well.<br>
 Bypass explorer and even Win11 Xbox mode bloat if you only care about Steam for example.<br>
 
-Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA & Battlenet should work.
+Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should work.
 
 ## How to use
 * Download and Install
@@ -13,6 +13,7 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA & Battlenet should work.
 * You can config Windows to skip login etc
 * Steam App Left/Right menus can be opened by holding Back/Select button then tapping Left/Right Bumper
 * In Control-Center, you can use a Gamepad to navigate
+* I suggest making Steam default boot into BigPicture mode (better after it updates). And disable Steams auto-start.
 
 ### Other info
 The reg value changed is "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell" (yes thats it)<br>
