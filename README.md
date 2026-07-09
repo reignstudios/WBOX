@@ -15,6 +15,9 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should wo
 * In Control-Center, you can use a Gamepad to navigate
 * I suggest making Steam default boot into BigPicture mode (better after it updates). And disable Steams auto-start.
 
+### Gotchas
+* If Steams window is not fully in focus it may not detect virtual menu buttons (just click/tap it to focus it)
+
 ### Other info
 The reg value changed is "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell" (yes thats it)<br>
 If you ever need to manually revert simply do these steps (but Control Center does it for you)
