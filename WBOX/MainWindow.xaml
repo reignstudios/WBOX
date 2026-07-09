@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WBOX"
         mc:Ignorable="d"
-        Title="Reign Consolizer" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" WindowStartupLocation="CenterScreen">
+        Title="XBOX" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Grid>
 		<Grid Margin="0,0,0,0" VerticalAlignment="Top" Height="50">
 			<Image Source="/Icon_42.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Height="42" Margin="4"/>

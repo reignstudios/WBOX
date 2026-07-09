@@ -24,4 +24,8 @@ If you ever need to manually revert simply do these steps (but Control Center do
 * Click "Run new task" again and enter "explorer.exe"
 * Everything should work as normal again.
 
+### Known issues
+* If TDP control requires Xbox Gamebar and this is a must for you, this tool may not be for you.
+* UWP/WinRT style apps don't tend to work as they require extra bloat explorer loads.
+
 ![Screenshots](./WBOX/Logo.jpg)
