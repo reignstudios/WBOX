@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WBOX"
         mc:Ignorable="d"
-        Title="Desktop Settings" Width="400" Height="200" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner">
+        Title="Desktop Settings" Width="490" Height="270" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Grid>
-        
-    </Grid>
+		<StackPanel Orientation="Vertical">
+			<StackPanel Orientation="Horizontal" Margin="4">
+				<TextBlock Text="Wallpaper:" Margin="0,0,4,0" FontSize="24" Foreground="Gray" ToolTip="Leave blank to disable and use color"/>
+				<TextBox x:Name="wallpaperText" Width="256" FontSize="24"/>
+				<Button Content="Select" Width="84" Margin="8,0,0,0" Click="SelectWallpaperButton_Click"/>
+			</StackPanel>
+
+			<StackPanel Orientation="Horizontal" Margin="4">
+				<TextBlock Text="Color: " Margin="0,0,4,0" FontSize="24" Foreground="Gray"/>
+				<Grid x:Name="colorGrid" Background="Black" Width="32" Height="32"/>
+				<Button Content="Pick" Width="84" Click="PickColorButton_Click"/>
+			</StackPanel>
+
+			<CheckBox x:Name="transparancyEffects" Content="Transparancy Effects"/>
+			<CheckBox x:Name="activationWatermark" Content="Activation Watermark"/>
+		</StackPanel>
+
+		<Button Content="Apply" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Width="100" Height="50" Click="ApplyButton_Click"/>
+		<Button Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4" Width="100" Height="50" Click="CancelButton_Click"/>
+	</Grid>
 </Window>

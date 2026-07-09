@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WBOX"
         mc:Ignorable="d"
-        Title="Auto Login Manager" Width="400" Height="200" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner">
+        Title="Auto Login Manager" Width="400" Height="200" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Grid>
 		<StackPanel Orientation="Vertical">
 			<StackPanel Orientation="Horizontal" Margin="4">
@@ -19,7 +19,6 @@
 			</StackPanel>
 		</StackPanel>
 
-		<TextBlock Text="NOTE: Will ask for UAC 4 times" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="4" Foreground="Orange"/>
 		<Button Content="Enable" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Width="100" Height="50" Click="EnableButton_Click"/>
 		<Button Content="Disable" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4" Width="100" Height="50" Click="DisableButton_Click"/>
 	</Grid>

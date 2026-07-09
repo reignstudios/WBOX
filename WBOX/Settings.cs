@@ -11,9 +11,10 @@ namespace WBOX
 	public class CustomAppSettings
 	{
 		public bool Enabled { get; set; }
+		public string Name { get; set; }
 		public string Path { get; set; }
 		public string Args { get; set; }
-		public string Watch { get; set; }
+		//public string Watch { get; set; }
 	}
 
 	public class AppSettings
@@ -36,6 +37,16 @@ namespace WBOX
 
 		public bool AutoMinimize { get; set; }
 
+		public bool SteamEnabled { get; set; }
+		public bool PlayniteEnabled { get; set; }
+		public bool GOGEnabled { get; set; }
+		public bool ItchioEnabled { get; set; }
+		public bool EpicEnabled { get; set; }
+		public bool UbisoftEnabled { get; set; }
+		public bool EAEnabled { get; set; }
+		public bool BattlenetEnabled { get; set; }
+		public bool PolymegaEnabled { get; set; }
+
 		public List<CustomAppSettings> CustomAppSettings { get; set; }
 
 		public AppSettings()
@@ -44,6 +55,7 @@ namespace WBOX
 			DefaultBoot = DefaultBoot_ControlCenter;
 			SteamOptimized = true;
 			AutoMinimize = true;
+			SteamEnabled = true;
 			CustomAppSettings = new List<CustomAppSettings>();
 		}
 	}

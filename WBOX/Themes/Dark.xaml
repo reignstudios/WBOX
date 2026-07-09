@@ -140,4 +140,14 @@
 		</Setter>
 	</Style>
 
+	<Style TargetType="ListBox">
+		<Setter Property="Background" Value="{StaticResource DarkSurface}" />
+		<Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
+		<Setter Property="BorderBrush" Value="{StaticResource DarkBorder}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Padding" Value="4" />
+		<Setter Property="FontSize" Value="18" />
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+	</Style>
+
 </ResourceDictionary>

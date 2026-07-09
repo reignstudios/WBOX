@@ -18,7 +18,7 @@
 		</Grid>
 		
 		<Grid Margin="0,50,0,0" VerticalAlignment="Top" Height="50">
-			<StackPanel Orientation="Horizontal" Background="Gray">
+			<StackPanel x:Name="defaultBootStack" Orientation="Horizontal" Background="Gray">
 				<TextBlock Text="Default Boot:" Foreground="Black" FontSize="18" Margin="4" VerticalAlignment="Center"/>
 				<RadioButton x:Name="defaultBoot_ControlCenter" Content="Control Center" Margin="8" IsChecked="True"/>
 				<RadioButton x:Name="defaultBoot_Steam" Content="Steam" Margin="8"/>
@@ -35,20 +35,24 @@
 
 		<ScrollViewer VerticalScrollBarVisibility="Auto" Margin="0,100,0,0">
 			<StackPanel Orientation="Vertical">
-				<Button Content="Steam" Margin="4" Click="SteamButton_Click"/>
-				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+				<Button x:Name="steamButton" Content="Steam" Margin="4" Click="SteamButton_Click"/>
+				<StackPanel x:Name="steamButtonOptions" Orientation="Horizontal" HorizontalAlignment="Center">
 					<CheckBox x:Name="steamOptimizedCheckbox" Content="Optimized" Margin="4,0" ToolTip="Runs Steam with '-no-browser' arg" IsChecked="True"/>
 					<CheckBox x:Name="steamWindowedCheckbox" Content="Windowed" Margin="4,0" ToolTip="Runs Steam with '-windowed' arg, otherwise '-bigpicture'"/>
 					<CheckBox x:Name="steamBorderlessCheckbox" Content="Borderless" Margin="4,0" ToolTip="Runs Steam with '-noborder' arg"/>
 				</StackPanel>
-				<Button Content="Playnite" Margin="4" Click="PlayniteButton_Click"/>
-				<Button Content="GOG" Margin="4" Click="GOGButton_Click"/>
-				<Button Content="Itch.io" Margin="4" Click="ItchioButton_Click"/>
-				<Button Content="Epic" Margin="4" Click="EpicButton_Click"/>
-				<Button Content="Ubisoft" Margin="4" Click="UbisoftButton_Click"/>
-				<Button Content="EA" Margin="4" Click="EAButton_Click"/>
-				<Button Content="Battlenet" Margin="4" Click="BattlenetButton_Click"/>
-				<Button Content="Polymega" Margin="4" Click="PolymegaButton_Click"/>
+				<Button x:Name="playniteButton" Content="Playnite" Margin="4" Click="PlayniteButton_Click"/>
+				<Button x:Name="gogButton" Content="GOG" Margin="4" Click="GOGButton_Click"/>
+				<Button x:Name="itchioButton" Content="Itch.io" Margin="4" Click="ItchioButton_Click"/>
+				<Button x:Name="epicButton" Content="Epic" Margin="4" Click="EpicButton_Click"/>
+				<Button x:Name="ubisoftButton" Content="Ubisoft" Margin="4" Click="UbisoftButton_Click"/>
+				<Button x:Name="eaButton" Content="EA" Margin="4" Click="EAButton_Click"/>
+				<Button x:Name="battlenetButton" Content="Battlenet" Margin="4" Click="BattlenetButton_Click"/>
+				<Button x:Name="polymegaButton" Content="Polymega" Margin="4" Click="PolymegaButton_Click"/>
+				<ListBox x:Name="customAppButtonListBox" HorizontalContentAlignment="Stretch" Margin="4">
+					<!--<Button Content="CustomAppTest"/>
+					<Button Content="CustomAppTest"/>-->
+				</ListBox>
 				<Separator Margin="4"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
 					<!--<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
@@ -59,11 +63,10 @@
 				</StackPanel>
 				<Separator Margin="4"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-					<Button Content="Sleep" Width="200" Margin="4" Click="SleepButton_Click" Background="Blue"/>
-					<Button Content="Reboot" Width="200" Margin="4" Click="RebootButton_Click" Background="Green"/>
-					<Button Content="Shutdown" Width="200" Margin="4" Click="ShutdownButton_Click" Background="Red"/>
+					<Button Content="Sleep" Width="200" Margin="4" Click="SleepButton_Click" Background="DarkBlue"/>
+					<Button Content="Reboot" Width="200" Margin="4" Click="RebootButton_Click" Background="DarkGreen"/>
+					<Button Content="Shutdown" Width="200" Margin="4" Click="ShutdownButton_Click" Background="DarkRed"/>
 				</StackPanel>
-				<Separator Margin="4"/>
 				<Separator Margin="4"/>
 				<Button Content="Enable Game Mode" Margin="4" Click="EnableGameModeButton_Click"/>
 				<Button Content="Disable Game Mode" Margin="4" Click="DisableGameModeButton_Click"/>
@@ -80,25 +83,27 @@
 			<StackPanel Orientation="Vertical" Margin="4">
 				<TextBlock Text="Common Launchers" FontSize="32" Foreground="Gray"/>
 				<StackPanel Orientation="Horizontal">
-					<CheckBox Content="Steam" IsChecked="True"/>
-					<CheckBox Content="Playnite"/>
-					<CheckBox Content="GOG"/>
-					<CheckBox Content="Itch.io"/>
-					<CheckBox Content="Epic"/>
-					<CheckBox Content="Ubisoft"/>
-					<CheckBox Content="EA"/>
-					<CheckBox Content="Battlenet"/>
-					<CheckBox Content="Polymega"/>
+					<CheckBox x:Name="steamEnabledCheckbox" Content="Steam" IsChecked="True"/>
+					<CheckBox x:Name="playniteEnabledCheckbox" Content="Playnite"/>
+					<CheckBox x:Name="gogEnabledCheckbox" Content="GOG"/>
+					<CheckBox x:Name="itchioEnabledCheckbox" Content="Itch.io"/>
+					<CheckBox x:Name="epicEnabledCheckbox" Content="Epic"/>
+					<CheckBox x:Name="ubisoftEnabledCheckbox" Content="Ubisoft"/>
+					<CheckBox x:Name="eaEnabledCheckbox" Content="EA"/>
+					<CheckBox x:Name="battlenetEnabledCheckbox" Content="Battlenet"/>
+					<CheckBox x:Name="polymegaEnabledCheckbox" Content="Polymega"/>
 				</StackPanel>
 				<Separator/>
 
 				<StackPanel Orientation="Horizontal">
 					<TextBlock Text="Custom Apps" FontSize="32" Foreground="Gray"/>
-					<Button Width="32" Height="32" Margin="8,0,0,0">
+					<Button Width="32" Height="32" Margin="8,0,0,0" Click="AddCustomAppButton_Click">
 						<TextBlock Text="+" VerticalAlignment="Center" Margin="0,0,0,5"/>
 					</Button>
 				</StackPanel>
-				<!--<local:CustomApp/>-->
+				<ListBox x:Name="customAppStackPanel">
+					<!--<local:CustomApp/>-->
+				</ListBox>
 				<Separator/>
 			</StackPanel>
 			<Button Content="Done" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="128" Margin="4" Click="SettingsDoneButton_Click"/>

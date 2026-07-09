@@ -232,12 +232,12 @@ namespace WBOX
 		/// </summary>
 		public int index { get; private set; }
 
-		public Button A, B, X, Y;
-		public Button DpadLeft, DpadRight, DpadDown, DpadUp;
-		public Button Menu, Back;
-		public Button BumperLeft, BumperRight;
-		public Button TriggerButtonLeft, TriggerButtonRight;
-		public Button JoystickButtonLeft, JoystickButtonRight;
+		public GamepadButton A, B, X, Y;
+		public GamepadButton DpadLeft, DpadRight, DpadDown, DpadUp;
+		public GamepadButton Menu, Back;
+		public GamepadButton BumperLeft, BumperRight;
+		public GamepadButton TriggerButtonLeft, TriggerButtonRight;
+		public GamepadButton JoystickButtonLeft, JoystickButtonRight;
 		public Axis1D TriggerLeft, TriggerRight;
 		public Axis2D JoystickLeft, JoystickRight;
 
@@ -246,27 +246,27 @@ namespace WBOX
 			this.instance = instance;
 			this.index = index;
 
-			A = new Button();
-			B = new Button();
-			X = new Button();
-			Y = new Button();
+			A = new GamepadButton();
+			B = new GamepadButton();
+			X = new GamepadButton();
+			Y = new GamepadButton();
 
-			DpadLeft = new Button();
-			DpadRight = new Button();
-			DpadDown = new Button();
-			DpadUp = new Button();
+			DpadLeft = new GamepadButton();
+			DpadRight = new GamepadButton();
+			DpadDown = new GamepadButton();
+			DpadUp = new GamepadButton();
 
-			Menu = new Button();
-			Back = new Button();
+			Menu = new GamepadButton();
+			Back = new GamepadButton();
 
-			BumperLeft = new Button();
-			BumperRight = new Button();
+			BumperLeft = new GamepadButton();
+			BumperRight = new GamepadButton();
 
-			TriggerButtonLeft = new Button();
-			TriggerButtonRight = new Button();
+			TriggerButtonLeft = new GamepadButton();
+			TriggerButtonRight = new GamepadButton();
 
-			JoystickButtonLeft = new Button();
-			JoystickButtonRight = new Button();
+			JoystickButtonLeft = new GamepadButton();
+			JoystickButtonRight = new GamepadButton();
 
 			TriggerLeft = new Axis1D(Axis1DUpdateMode.Positive);
 			TriggerRight = new Axis1D(Axis1DUpdateMode.Positive);
@@ -394,7 +394,7 @@ namespace WBOX
 		}
 	}
 
-	public class Button
+	public class GamepadButton
 	{
 		/// <summary>
 		/// Button actively being pressed

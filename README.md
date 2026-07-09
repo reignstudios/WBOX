@@ -10,7 +10,7 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should wo
 * Download and Install
 * Click "Enable Game Mode" (This will modify a single reg value and reboot)
 * NOTE: If the app fails to run you may need to disable "Smart App Control"
-* You can config Windows to skip login etc
+* You can config Windows to skip login etc (optional: go to <u>Settings→Accounts→Sign-in</u> options and disable login after sleep)
 * Steam App Left/Right menus can be opened by holding Back/Select button then tapping Left/Right Bumper
 * In Control-Center, you can use a Gamepad to navigate
 * I suggest making Steam default boot into BigPicture mode (better after it updates). And disable Steams auto-start.

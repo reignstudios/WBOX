@@ -42,6 +42,7 @@ namespace WBOX
 
         public MainWindow()
         {
+            Instance = this;
             InitializeComponent();
             versionText.Text = $"v{VersionInfo.version}";
 
@@ -50,12 +51,38 @@ namespace WBOX
             steamOptimizedCheckbox.IsChecked = settings.SteamOptimized;
             steamWindowedCheckbox.IsChecked = settings.SteamWindowed;
             steamBorderlessCheckbox.IsChecked = settings.SteamBorderless;
+
             autoMinCheckbox.IsChecked = settings.AutoMinimize;
+
+            steamEnabledCheckbox.IsChecked = settings.SteamEnabled;
+            playniteEnabledCheckbox.IsChecked = settings.PlayniteEnabled;
+            gogEnabledCheckbox.IsChecked = settings.GOGEnabled;
+            itchioEnabledCheckbox.IsChecked = settings.ItchioEnabled;
+            epicEnabledCheckbox.IsChecked = settings.EpicEnabled;
+            ubisoftEnabledCheckbox.IsChecked = settings.UbisoftEnabled;
+            eaEnabledCheckbox.IsChecked = settings.EAEnabled;
+            battlenetEnabledCheckbox.IsChecked = settings.BattlenetEnabled;
+            polymegaEnabledCheckbox.IsChecked = settings.PolymegaEnabled;
+
+            customAppStackPanel.Items.Clear();
+            foreach (var customApp in settings.CustomAppSettings)
+            {
+                var item = new CustomApp();
+                item.enabledCheckbox.IsChecked = customApp.Enabled;
+                item.nameTextBox.Text = customApp.Name;
+                item.pathTextBox.Text = customApp.Path;
+                item.argsTextBox.Text = customApp.Args;
+                //item.watchTextBox.Text = customApp.Watch;
+                customAppStackPanel.Items.Add(item);
+            }
+            customAppStackPanel.Items.Refresh();
+
+            RefreshSettingChanges();
 
             // check desktop mode
             isDesktopMode = Process.GetProcessesByName("explorer").Length != 0;
 
-            // intro logo
+            // default boot
             if (settings.DefaultBoot == AppSettings.DefaultBoot_ControlCenter)
             {
                 defaultBoot_ControlCenter.IsChecked = true;
@@ -131,6 +158,54 @@ namespace WBOX
             //var storeApps = Apps.GetStoreApps();
             //var app = storeApps.FirstOrDefault(x => x.Name.ToLower().Contains("codex"));
         }
+
+        private void RefreshSettingChanges()
+        {
+            defaultBoot_Steam.Visibility = steamButton.Visibility = steamButtonOptions.Visibility = settings.SteamEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_Playnite.Visibility = playniteButton.Visibility = settings.PlayniteEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_GOG.Visibility = gogButton.Visibility = settings.GOGEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_Itchio.Visibility = itchioButton.Visibility = settings.ItchioEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_Epic.Visibility = epicButton.Visibility = settings.EpicEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_Ubisoft.Visibility = ubisoftButton.Visibility = settings.UbisoftEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_EA.Visibility = eaButton.Visibility = settings.EAEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_Battlenet.Visibility = battlenetButton.Visibility = settings.BattlenetEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_Polymega.Visibility = polymegaButton.Visibility = settings.PolymegaEnabled ? Visibility.Visible : Visibility.Collapsed;
+
+            var removeList = new List<UIElement>();
+            foreach (var child in defaultBootStack.Children)
+            {
+                if (child is RadioButton radio)
+                {
+                    if (radio.Tag is CustomAppSettings) removeList.Add(radio);
+                }
+            }
+
+            foreach (var item in removeList) defaultBootStack.Children.Remove(item);
+
+            customAppButtonListBox.Items.Clear();
+            foreach (var customApp in settings.CustomAppSettings)
+            {
+                if (!customApp.Enabled) continue;
+
+                var button = new Button();
+                button.Tag = customApp;
+                button.Content = customApp.Name;
+				button.Click += CustomAppButton_Click;
+                customAppButtonListBox.Items.Add(button);
+
+                var radio = new RadioButton();
+                radio.Tag = customApp;
+                radio.Content = customApp.Name;
+                defaultBootStack.Children.Add(radio);
+            }
+            customAppButtonListBox.Items.Refresh();
+        }
+
+		private void CustomAppButton_Click(object sender, RoutedEventArgs e)
+		{
+			var customApp = (CustomAppSettings)((Button)sender).Tag;
+            LaunchGameApp(customApp.Path, customApp.Args, System.IO.Path.GetFileNameWithoutExtension(customApp.Path));
+		}
 
 		private void InputThread()
 		{
@@ -249,7 +324,32 @@ namespace WBOX
             settings.SteamOptimized = steamOptimizedCheckbox.IsChecked == true;
             settings.SteamWindowed = steamWindowedCheckbox.IsChecked == true;
             settings.SteamBorderless = steamBorderlessCheckbox.IsChecked == true;
+
             settings.AutoMinimize = autoMinCheckbox.IsChecked == true;
+
+            settings.SteamEnabled = steamEnabledCheckbox.IsChecked == true;
+            settings.PlayniteEnabled = playniteEnabledCheckbox.IsChecked == true;
+            settings.GOGEnabled = gogEnabledCheckbox.IsChecked == true;
+            settings.ItchioEnabled = itchioEnabledCheckbox.IsChecked == true;
+            settings.EpicEnabled = epicEnabledCheckbox.IsChecked == true;
+            settings.UbisoftEnabled = ubisoftEnabledCheckbox.IsChecked == true;
+            settings.EAEnabled = eaEnabledCheckbox.IsChecked == true;
+            settings.BattlenetEnabled = battlenetEnabledCheckbox.IsChecked == true;
+            settings.PolymegaEnabled = polymegaEnabledCheckbox.IsChecked == true;
+
+            settings.CustomAppSettings.Clear();
+            foreach (CustomApp item in customAppStackPanel.Items)
+            {
+                var customAppSetting = new CustomAppSettings()
+                {
+                    Enabled = item.enabledCheckbox.IsChecked == true,
+                    Name = item.nameTextBox.Text.Trim(),
+                    Path = item.pathTextBox.Text.Trim(),
+                    Args = item.argsTextBox.Text.Trim(),
+                    //Watch = item.watchTextBox.Text.Trim()
+                };
+                settings.CustomAppSettings.Add(customAppSetting);
+            }
 
             Settings.Save(settings);
 		}
@@ -692,7 +792,9 @@ namespace WBOX
 
         private void DesktopSettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            // TODO
+            var manager = new DesktopSettingsWindow();
+            manager.Owner = this;
+            manager.ShowDialog();
         }
 
         private void MinButton_Click(object sender, RoutedEventArgs e)
@@ -708,6 +810,21 @@ namespace WBOX
 		private void SettingsDoneButton_Click(object sender, RoutedEventArgs e)
 		{
             settingsGrid.Visibility = Visibility.Hidden;
+            SaveSettings();
+            RefreshSettingChanges();
 		}
+
+		private void AddCustomAppButton_Click(object sender, RoutedEventArgs e)
+		{
+            var item = new CustomApp();
+            customAppStackPanel.Items.Add(item);
+            customAppStackPanel.Items.Refresh();
+		}
+
+        public void RemoveCustomApp(CustomApp customApp)
+        {
+            customAppStackPanel.Items.Remove(customApp);
+            customAppStackPanel.Items.Refresh();
+        }
 	}
 }

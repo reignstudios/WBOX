@@ -10,7 +10,7 @@ namespace WBOX
 {
 	static class Reg
 	{
-		public static void SetStringValue(string path, string key, string value)
+		public static void SetStringValue(string path, string key, string value, bool admin)
 		{
 			try
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -27,17 +28,28 @@ namespace WBOX
 
 		private void SelectButton_Click(object sender, RoutedEventArgs e)
 		{
+			var dialog = new OpenFileDialog
+			{
+				Title = "Select Executable",
+				Filter = "Executable or Batch files (*.exe;*.bat)|*.exe;*.bat",
+				CheckFileExists = true,
+				CheckPathExists = true
+			};
 
+			if (dialog.ShowDialog() == true)
+			{
+				pathTextBox.Text = dialog.FileName;
+			}
 		}
 
 		private void StartButton_Click(object sender, RoutedEventArgs e)
 		{
-
+            MainWindow.Instance.LaunchGameApp(pathTextBox.Text, argsTextBox.Text, System.IO.Path.GetFileNameWithoutExtension(pathTextBox.Text));
 		}
 
 		private void RemoveButton_Click(object sender, RoutedEventArgs e)
 		{
-
+			MainWindow.Instance.RemoveCustomApp(this);
 		}
 	}
 }

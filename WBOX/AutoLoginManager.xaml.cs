@@ -39,13 +39,11 @@ namespace WBOX
 
 		private void SetAutoLogin(bool enable)
 		{
-			Reg.SetStringValue(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", "AutoAdminLogon", enable ? "1" : "0");// enable auto login
-			Thread.Sleep(100);
-			Reg.SetStringValue(@"HKLM\SOFTWARE\Policies\Microsoft\Windows\System", "DisableAutomaticRestartSignOn", enable ? "1" : "0");// enable auto login after sleep
-			Thread.Sleep(100);
-			Reg.SetStringValue(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", "DefaultUserName", enable ? usernameText.Text : "");
-			Thread.Sleep(100);
-			Reg.SetStringValue(@"HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon", "DefaultPassword", enable ? passwordText.Password : "");
+			string bash = System.IO.Path.Combine(AppContext.BaseDirectory, "AutoLogin.bat");
+			string enableArg = enable ? "1" : "0";
+			string userArg = enable ? usernameText.Text : "";
+			string passArg = enable ? passwordText.Password : "";
+			ProcessUtil.LaunchAdminProcess(bash, $"{enableArg} {userArg} {passArg}", false, false);
 			Close();
 		}
 	}
