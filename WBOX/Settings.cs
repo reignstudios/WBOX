@@ -8,6 +8,14 @@ using System.Xml.Serialization;
 
 namespace WBOX
 {
+	public class CustomAppSettings
+	{
+		public bool Enabled { get; set; }
+		public string Path { get; set; }
+		public string Args { get; set; }
+		public string Watch { get; set; }
+	}
+
 	public class AppSettings
 	{
 		public const string DefaultBoot_ControlCenter = "ControlCenter";
@@ -26,10 +34,17 @@ namespace WBOX
 		public bool SteamWindowed { get; set; }
 		public bool SteamBorderless { get; set; }
 
+		public bool AutoMinimize { get; set; }
+
+		public List<CustomAppSettings> CustomAppSettings { get; set; }
+
 		public AppSettings()
 		{
+			// set defaults
 			DefaultBoot = DefaultBoot_ControlCenter;
 			SteamOptimized = true;
+			AutoMinimize = true;
+			CustomAppSettings = new List<CustomAppSettings>();
 		}
 	}
 

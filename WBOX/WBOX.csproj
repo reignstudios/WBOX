@@ -144,6 +144,12 @@
     <Compile Include="AutoLoginManager.xaml.cs">
       <DependentUpon>AutoLoginManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CustomApp.xaml.cs">
+      <DependentUpon>CustomApp.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DesktopSettingsWindow.xaml.cs">
+      <DependentUpon>DesktopSettingsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gamepad.cs" />
     <Compile Include="KeyboardSimulator.cs" />
     <Compile Include="MouseSimulator.cs" />
@@ -155,6 +161,14 @@
       <DependentUpon>VolumeWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="AutoLoginManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomApp.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="DesktopSettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -215,9 +229,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Logo.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.7.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.7.2 %28x86 and x64%29</ProductName>
@@ -231,6 +242,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Icon_42.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

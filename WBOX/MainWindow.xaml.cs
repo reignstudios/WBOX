@@ -43,13 +43,14 @@ namespace WBOX
         public MainWindow()
         {
             InitializeComponent();
-            versionText.Text = $"v{VersionInfo.version} alpha";
+            versionText.Text = $"v{VersionInfo.version}";
 
             // load settings
             settings = Settings.Load();
             steamOptimizedCheckbox.IsChecked = settings.SteamOptimized;
             steamWindowedCheckbox.IsChecked = settings.SteamWindowed;
             steamBorderlessCheckbox.IsChecked = settings.SteamBorderless;
+            autoMinCheckbox.IsChecked = settings.AutoMinimize;
 
             // check desktop mode
             isDesktopMode = Process.GetProcessesByName("explorer").Length != 0;
@@ -58,8 +59,6 @@ namespace WBOX
             if (settings.DefaultBoot == AppSettings.DefaultBoot_ControlCenter)
             {
                 defaultBoot_ControlCenter.IsChecked = true;
-                logoImage.Visibility = Visibility.Visible;
-                FadeOutAndHide(logoImage, 1.0);
             }
             else
             {
@@ -204,25 +203,6 @@ namespace WBOX
                 }
             }
 		}
-
-		private void FadeOutAndHide(UIElement element, double seconds = 0.5)
-        {
-            var animation = new DoubleAnimation
-            {
-                From = element.Opacity,
-                To = 0.0,
-                Duration = TimeSpan.FromSeconds(seconds),
-                FillBehavior = FillBehavior.Stop
-            };
-
-            animation.Completed += (object sender, EventArgs e) =>
-            {
-                element.Opacity = 0.0;
-                element.Visibility = Visibility.Hidden;
-            };
-
-            element.BeginAnimation(UIElement.OpacityProperty, animation);
-        }
 		
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
@@ -269,6 +249,7 @@ namespace WBOX
             settings.SteamOptimized = steamOptimizedCheckbox.IsChecked == true;
             settings.SteamWindowed = steamWindowedCheckbox.IsChecked == true;
             settings.SteamBorderless = steamBorderlessCheckbox.IsChecked == true;
+            settings.AutoMinimize = autoMinCheckbox.IsChecked == true;
 
             Settings.Save(settings);
 		}
@@ -709,9 +690,24 @@ namespace WBOX
             manager.ShowDialog();
         }
 
+        private void DesktopSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            // TODO
+        }
+
         private void MinButton_Click(object sender, RoutedEventArgs e)
         {
             WindowState = WindowState.Minimized;
         }
-    }
+
+		private void SettingsButton_Click(object sender, RoutedEventArgs e)
+		{
+            settingsGrid.Visibility = Visibility.Visible;
+		}
+
+		private void SettingsDoneButton_Click(object sender, RoutedEventArgs e)
+		{
+            settingsGrid.Visibility = Visibility.Hidden;
+		}
+	}
 }

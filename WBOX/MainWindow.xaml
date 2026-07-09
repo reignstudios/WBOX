@@ -8,15 +8,18 @@
         Title="Reign Consolizer" Height="1080" Width="1920" WindowStyle="None" WindowState="Maximized" WindowStartupLocation="CenterScreen">
     <Grid>
 		<Grid Margin="0,0,0,0" VerticalAlignment="Top" Height="50">
-			<TextBlock Text="Default Boot" Foreground="Gray" FontSize="18" Margin="4"/>
+			<Image Source="/Icon_42.png" HorizontalAlignment="Left" VerticalAlignment="Top" Width="42" Height="42" Margin="4"/>
 			<TextBlock Text="Control Center" Foreground="Gray" FontSize="24" FontWeight="Bold" Margin="4" HorizontalAlignment="Center"/>
-			<!--<Button Content="⛭" Foreground="Gray" FontSize="24" FontWeight="Bold" Margin="225,0,0,0" Width="32" Height="32" HorizontalAlignment="Center"/>-->
+			<Button Foreground="Gray" FontSize="32" FontWeight="Bold" Margin="225,0,0,0" Width="42" Height="42" HorizontalAlignment="Center" Click="SettingsButton_Click">
+				<TextBlock Text="⛭" VerticalAlignment="Center"/>
+			</Button>
 			<CheckBox x:Name="autoMinCheckbox" Content="Auto Minimize" IsChecked="True" HorizontalAlignment="Right" Foreground="Gray" Margin="4,4,50,4"/>
 			<Button x:Name="minButton" Content="-" Width="32" HorizontalAlignment="Right" Margin="4" Visibility="Hidden" Click="MinButton_Click"/>
 		</Grid>
 		
 		<Grid Margin="0,50,0,0" VerticalAlignment="Top" Height="50">
 			<StackPanel Orientation="Horizontal" Background="Gray">
+				<TextBlock Text="Default Boot:" Foreground="Black" FontSize="18" Margin="4" VerticalAlignment="Center"/>
 				<RadioButton x:Name="defaultBoot_ControlCenter" Content="Control Center" Margin="8" IsChecked="True"/>
 				<RadioButton x:Name="defaultBoot_Steam" Content="Steam" Margin="8"/>
 				<RadioButton x:Name="defaultBoot_Playnite" Content="Playnite" Margin="8"/>
@@ -47,26 +50,58 @@
 				<Button Content="Battlenet" Margin="4" Click="BattlenetButton_Click"/>
 				<Button Content="Polymega" Margin="4" Click="PolymegaButton_Click"/>
 				<Separator Margin="4"/>
-				<!--<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
-				<Button Content="Windows Settings" Margin="4" Click="WindowsSettingsButton_Click"/>-->
-				<Button Content="Desktop" Margin="4" Click="DesktopButton_Click"/>
-				<Button Content="File Explorer" Margin="4" Click="FileExplorerButton_Click"/>
-				<Button Content="Task Manager" Margin="4" Click="TaskManagerButton_Click"/>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+					<!--<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
+					<Button Content="Windows Settings" Margin="4" Click="WindowsSettingsButton_Click"/>-->
+					<Button Content="Desktop" Width="200" Margin="4" Click="DesktopButton_Click"/>
+					<Button Content="File Explorer" Width="200" Margin="4" Click="FileExplorerButton_Click"/>
+					<Button Content="Task Manager" Width="200" Margin="4" Click="TaskManagerButton_Click"/>
+				</StackPanel>
 				<Separator Margin="4"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-					<Button Content="Sleep" Width="200" Margin="4" Click="SleepButton_Click"/>
-					<Button Content="Reboot" Width="200" Margin="4" Click="RebootButton_Click"/>
-					<Button Content="Shutdown" Width="200" Margin="4" Click="ShutdownButton_Click"/>
+					<Button Content="Sleep" Width="200" Margin="4" Click="SleepButton_Click" Background="Blue"/>
+					<Button Content="Reboot" Width="200" Margin="4" Click="RebootButton_Click" Background="Green"/>
+					<Button Content="Shutdown" Width="200" Margin="4" Click="ShutdownButton_Click" Background="Red"/>
 				</StackPanel>
 				<Separator Margin="4"/>
 				<Separator Margin="4"/>
 				<Button Content="Enable Game Mode" Margin="4" Click="EnableGameModeButton_Click"/>
 				<Button Content="Disable Game Mode" Margin="4" Click="DisableGameModeButton_Click"/>
 				<Button Content="Auto Login Manager" Margin="4" Click="AutoLoginManagerButton_Click"/>
+				<Button Content="Desktop Settings" Margin="4" Click="DesktopSettingsButton_Click" ToolTip="Windows Activation not required"/>
 			</StackPanel>
 		</ScrollViewer>
 
-		<Image x:Name="logoImage" Source="/Logo.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
-		<TextBlock x:Name="versionText" Text="v0.0.0 alpha" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Foreground="Gray"/>
+		<!-- Version -->
+		<TextBlock x:Name="versionText" Text="v0.0.0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Foreground="Gray"/>
+
+		<!-- Settings -->
+		<Grid x:Name="settingsGrid" Visibility="Hidden">
+			<StackPanel Orientation="Vertical" Margin="4">
+				<TextBlock Text="Common Launchers" FontSize="32" Foreground="Gray"/>
+				<StackPanel Orientation="Horizontal">
+					<CheckBox Content="Steam" IsChecked="True"/>
+					<CheckBox Content="Playnite"/>
+					<CheckBox Content="GOG"/>
+					<CheckBox Content="Itch.io"/>
+					<CheckBox Content="Epic"/>
+					<CheckBox Content="Ubisoft"/>
+					<CheckBox Content="EA"/>
+					<CheckBox Content="Battlenet"/>
+					<CheckBox Content="Polymega"/>
+				</StackPanel>
+				<Separator/>
+
+				<StackPanel Orientation="Horizontal">
+					<TextBlock Text="Custom Apps" FontSize="32" Foreground="Gray"/>
+					<Button Width="32" Height="32" Margin="8,0,0,0">
+						<TextBlock Text="+" VerticalAlignment="Center" Margin="0,0,0,5"/>
+					</Button>
+				</StackPanel>
+				<!--<local:CustomApp/>-->
+				<Separator/>
+			</StackPanel>
+			<Button Content="Done" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="128" Margin="4" Click="SettingsDoneButton_Click"/>
+		</Grid>
 	</Grid>
 </Window>
