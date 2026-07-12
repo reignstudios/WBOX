@@ -7,7 +7,7 @@ Bypass explorer and even Win11 Xbox mode bloat if you only care about Steam for 
 Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should work.
 
 ## How to use
-* Download and Install
+* Download and Install (For upgrading, uninstall first)
 * Click "Enable Game Mode" (This will modify a single reg value and reboot)
 * NOTE: If the app fails to run you may need to disable "Smart App Control"
 * You can config Windows to skip login etc (optional: go to <u>Settings→Accounts→Sign-in</u> options and disable login after sleep)

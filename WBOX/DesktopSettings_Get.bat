@@ -4,5 +4,7 @@ for /f "tokens=2,*" %%A in ('reg.exe query "HKCU\Control Panel\Colors" /v Backgr
 for /f "tokens=2,*" %%A in ('reg.exe query "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v EnableTransparency') do set "TRANSPARANCY=%%B"
 for /f "tokens=2,*" %%A in ('reg.exe query "HKCU\Control Panel\Desktop" /v PaintDesktopVersion') do set "WATERMARK=%%B"
 for /f "tokens=2,*" %%A in ('reg.exe query "HKCU\Control Panel\Desktop" /v Wallpaper') do set "WALLPAPER=%%B"
+for /f "tokens=2,*" %%A in ('reg.exe query "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v AppsUseLightTheme') do set "LIGHTTHEMEAPPS=%%B"
+for /f "tokens=2,*" %%A in ('reg.exe query "HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize" /v SystemUsesLightTheme') do set "LIGHTTHEMESYSTEM=%%B"
 
-echo "%COLOR%" "%TRANSPARANCY%" "%WATERMARK%" "%WALLPAPER%"
+echo "%COLOR%" "%TRANSPARANCY%" "%WATERMARK%" "%WALLPAPER%" "%LIGHTTHEMEAPPS%" "%LIGHTTHEMESYSTEM%"

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WBOX"
         mc:Ignorable="d"
-        Title="Desktop Settings" Width="490" Height="270" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+        Title="Desktop Settings" Width="490" Height="320" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
     <Grid>
 		<StackPanel Orientation="Vertical">
 			<StackPanel Orientation="Horizontal" Margin="4">
@@ -22,6 +22,7 @@
 
 			<CheckBox x:Name="transparancyEffects" Content="Transparancy Effects"/>
 			<CheckBox x:Name="activationWatermark" Content="Activation Watermark"/>
+			<CheckBox x:Name="darkMode" Content="Dark Mode"/>
 		</StackPanel>
 
 		<Button Content="Apply" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Width="100" Height="50" Click="ApplyButton_Click"/>

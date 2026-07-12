@@ -31,7 +31,7 @@ namespace WBOX
 			string output = ProcessUtil.LaunchProcess(bash, "", false, true);
 			try
 			{
-				var match = Regex.Match(output, "(\".*\") (\".*\") (\".*\") (\".*\")");
+				var match = Regex.Match(output, "(\".*\") (\".*\") (\".*\") (\".*\") (\".*\") (\".*\")");
 				if (match.Success)
 				{
 					var colorValue = match.Groups[1].Value.Replace("\"", "").Split(' ');
@@ -43,6 +43,8 @@ namespace WBOX
 					
 					transparancyEffects.IsChecked = Convert.ToInt32(match.Groups[2].Value.Replace("\"", ""), 16) != 0;
 					activationWatermark.IsChecked = Convert.ToInt32(match.Groups[3].Value.Replace("\"", ""), 16) != 0;
+					wallpaperText.Text = match.Groups[4].Value;
+					darkMode.IsChecked = Convert.ToInt32(match.Groups[5].Value.Replace("\"", ""), 16) == 0 && Convert.ToInt32(match.Groups[6].Value.Replace("\"", ""), 16) == 0;
 
 					wallpaperText.Text = match.Groups[4].Value.Replace("\"", "");
 				}
@@ -78,7 +80,8 @@ namespace WBOX
 			string transparancy = transparancyEffects.IsChecked == true ? "1" : "0";
 			string watermark = activationWatermark.IsChecked == true ? "1" : "0";
 			string wallpapaer = wallpaperText.Text;
-			ProcessUtil.LaunchProcess(bash, $"\"{c}\" {transparancy} {watermark} \"{wallpapaer}\"", false, false);
+			string lightTheme = darkMode.IsChecked == true ? "0" : "1";
+			ProcessUtil.LaunchProcess(bash, $"\"{c}\" {transparancy} {watermark} \"{wallpapaer}\" {lightTheme}", false, false);
 			Close();
 		}
 
