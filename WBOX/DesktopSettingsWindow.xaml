@@ -27,5 +27,6 @@
 
 		<Button Content="Apply" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Width="100" Height="50" Click="ApplyButton_Click"/>
 		<Button Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4" Width="100" Height="50" Click="CancelButton_Click"/>
+		<TextBlock Text="Reboot may be required" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="4" Foreground="DarkGray"/>
 	</Grid>
 </Window>

@@ -43,10 +43,8 @@ namespace WBOX
 					
 					transparancyEffects.IsChecked = Convert.ToInt32(match.Groups[2].Value.Replace("\"", ""), 16) != 0;
 					activationWatermark.IsChecked = Convert.ToInt32(match.Groups[3].Value.Replace("\"", ""), 16) != 0;
-					wallpaperText.Text = match.Groups[4].Value;
-					darkMode.IsChecked = Convert.ToInt32(match.Groups[5].Value.Replace("\"", ""), 16) == 0 && Convert.ToInt32(match.Groups[6].Value.Replace("\"", ""), 16) == 0;
-
 					wallpaperText.Text = match.Groups[4].Value.Replace("\"", "");
+					darkMode.IsChecked = Convert.ToInt32(match.Groups[5].Value.Replace("\"", ""), 16) == 0 && Convert.ToInt32(match.Groups[6].Value.Replace("\"", ""), 16) == 0;
 				}
 			}
 			catch (Exception ex)

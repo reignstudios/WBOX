@@ -5,7 +5,7 @@ set "COLOR=%~1"
 set "TRANSPARANCY=%~2"
 set "WATERMARK=%~3"
 set "WALLPAPER=%~4"
-set "LIGHTTHEME=%~4"
+set "LIGHTTHEME=%~5"
 
 :: echo "%COLOR%" %TRANSPARANCY% %WATERMARK% "%WALLPAPER%"
 :: pause
