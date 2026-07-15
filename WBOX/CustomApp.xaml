@@ -9,14 +9,15 @@
 	<StackPanel Orientation="Horizontal">
 		<StackPanel Orientation="Horizontal" Margin="4">
 			<CheckBox x:Name="enabledCheckbox" Content="Enabled" IsChecked="True"/>
+			<CheckBox x:Name="autoStartCheckbox" Content="Auto Start" ToolTip="This will auto start the app without watching it"/>
 			<TextBlock Text="Name:" FontSize="24" Margin="8,0,0,0" VerticalAlignment="Center" ToolTip="Friendly Name"/>
-			<TextBox x:Name="nameTextBox" x:FieldModifier="public" MinWidth="128" Margin="8,0,0,0" VerticalContentAlignment="Center" Text="NewApp"/>
+			<TextBox x:Name="nameTextBox" MinWidth="64" Margin="8,0,0,0" VerticalContentAlignment="Center" Text="NewApp"/>
 			<TextBlock Text="Path:" FontSize="24" Margin="8,0,0,0" VerticalAlignment="Center" ToolTip="Path to your app"/>
-			<TextBox x:Name="pathTextBox" x:FieldModifier="public" MinWidth="128" Margin="8,0,0,0" VerticalContentAlignment="Center"/>
+			<TextBox x:Name="pathTextBox" MinWidth="64" Margin="8,0,0,0" VerticalContentAlignment="Center"/>
 			<TextBlock Text="Args:" FontSize="24" Margin="8,0,0,0" VerticalAlignment="Center" ToolTip="Args that will be passed to your app"/>
-			<TextBox x:Name="argsTextBox" x:FieldModifier="public" MinWidth="128" Margin="8,0,0,0" VerticalContentAlignment="Center"/>
+			<TextBox x:Name="argsTextBox" MinWidth="64" Margin="8,0,0,0" VerticalContentAlignment="Center"/>
 			<!--<TextBlock Text="Watch:" FontSize="24" Margin="8,0,0,0" VerticalAlignment="Center" ToolTip="Lets you watch for other relevent process names"/>
-			<TextBox x:Name="watchTextBox" x:FieldModifier="public" MinWidth="128" Margin="8,0,0,0"/>-->
+			<TextBox x:Name="watchTextBox" MinWidth="128" Margin="8,0,0,0"/>-->
 			<Button Content="Select" Width="128" Margin="8,0,0,0" Click="SelectButton_Click"/>
 			<Button Content="Start" Width="128" Margin="8,0,0,0" Click="StartButton_Click"/>
 			<Button Content="X" Width="42" Margin="8,0,0,0" Click="RemoveButton_Click"/>

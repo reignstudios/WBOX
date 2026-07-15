@@ -140,6 +140,7 @@
 		</Setter>
 	</Style>
 
+	<!-- ListBox -->
 	<Style TargetType="ListBox">
 		<Setter Property="Background" Value="{StaticResource DarkSurface}" />
 		<Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
@@ -148,6 +149,36 @@
 		<Setter Property="Padding" Value="4" />
 		<Setter Property="FontSize" Value="18" />
 		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled" />
+	</Style>
+
+	<!-- TextBox -->
+	<Style TargetType="TextBox">
+		<Setter Property="Background" Value="{StaticResource DarkSurface}" />
+		<Setter Property="Foreground" Value="{StaticResource DarkForeground}" />
+		<Setter Property="BorderBrush" Value="{StaticResource DarkBorder}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Padding" Value="8,6" />
+		<Setter Property="FontSize" Value="18" />
+		<Setter Property="Margin" Value="4" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto" />
+		<Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto" />
+		<Style.Triggers>
+			<!-- Focus effect -->
+			<Trigger Property="IsKeyboardFocusWithin" Value="True">
+				<Setter Property="BorderBrush" Value="#007ACC" />
+				<Setter Property="Background" Value="#2D2D30" />
+			</Trigger>
+			<!-- Hover effect -->
+			<Trigger Property="IsMouseOver" Value="True">
+				<Setter Property="BorderBrush" Value="#555555" />
+			</Trigger>
+			<!-- Disabled state -->
+			<Trigger Property="IsEnabled" Value="False">
+				<Setter Property="Foreground" Value="#888888" />
+				<Setter Property="Background" Value="#1E1E1E" />
+			</Trigger>
+		</Style.Triggers>
 	</Style>
 
 </ResourceDictionary>

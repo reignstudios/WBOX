@@ -69,11 +69,14 @@ namespace WBOX
             {
                 var item = new CustomApp();
                 item.enabledCheckbox.IsChecked = customApp.Enabled;
+                item.autoStartCheckbox.IsChecked = customApp.AutoStart;
                 item.nameTextBox.Text = customApp.Name;
                 item.pathTextBox.Text = customApp.Path;
                 item.argsTextBox.Text = customApp.Args;
                 //item.watchTextBox.Text = customApp.Watch;
                 customAppStackPanel.Items.Add(item);
+
+                if (customApp.AutoStart) ProcessUtil.LaunchProcess(customApp.Path, customApp.Args, true, false, waitForExit:false);
             }
             customAppStackPanel.Items.Refresh();
 
@@ -193,10 +196,13 @@ namespace WBOX
 				button.Click += CustomAppButton_Click;
                 customAppButtonListBox.Items.Add(button);
 
-                var radio = new RadioButton();
-                radio.Tag = customApp;
-                radio.Content = customApp.Name;
-                defaultBootStack.Children.Add(radio);
+                if (!customApp.AutoStart)
+                {
+                    var radio = new RadioButton();
+                    radio.Tag = customApp;
+                    radio.Content = customApp.Name;
+                    defaultBootStack.Children.Add(radio);
+                }
             }
             customAppButtonListBox.Items.Refresh();
         }
@@ -343,6 +349,7 @@ namespace WBOX
                 var customAppSetting = new CustomAppSettings()
                 {
                     Enabled = item.enabledCheckbox.IsChecked == true,
+                    AutoStart = item.autoStartCheckbox.IsChecked == true,
                     Name = item.nameTextBox.Text.Trim(),
                     Path = item.pathTextBox.Text.Trim(),
                     Args = item.argsTextBox.Text.Trim(),

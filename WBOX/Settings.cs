@@ -11,6 +11,7 @@ namespace WBOX
 	public class CustomAppSettings
 	{
 		public bool Enabled { get; set; }
+		public bool AutoStart { get; set; }
 		public string Name { get; set; }
 		public string Path { get; set; }
 		public string Args { get; set; }

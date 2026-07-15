@@ -6,7 +6,7 @@ namespace WBOX
 {
 	static class ProcessUtil
 	{
-        public static string LaunchProcess(string processName, string args, bool setWorkingPath, bool readOutput)
+        public static string LaunchProcess(string processName, string args, bool setWorkingPath, bool readOutput, bool waitForExit = true)
 		{
 			try
             {
@@ -21,7 +21,7 @@ namespace WBOX
                 if (setWorkingPath) startInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(processName);
                 using (var process = Process.Start(startInfo))
                 {
-                    process.WaitForExit();
+                    if (waitForExit) process.WaitForExit();
                     if (readOutput) return process.StandardOutput.ReadToEnd();
                 }
             }
@@ -33,7 +33,7 @@ namespace WBOX
             return "";
 		}
 
-        public static string LaunchAdminProcess(string processName, string args, bool setWorkingPath, bool readOutput)
+        public static string LaunchAdminProcess(string processName, string args, bool setWorkingPath, bool readOutput, bool waitForExit = true)
 		{
 			try
             {
@@ -49,7 +49,7 @@ namespace WBOX
                 if (setWorkingPath) startInfo.WorkingDirectory = System.IO.Path.GetDirectoryName(processName);
                 using (var process = Process.Start(startInfo))
                 {
-                    process.WaitForExit();
+                    if (waitForExit) process.WaitForExit();
                     if (readOutput) return process.StandardOutput.ReadToEnd();
                 }
             }
