@@ -80,6 +80,10 @@ namespace WBOX
 			string wallpapaer = wallpaperText.Text;
 			string lightTheme = darkMode.IsChecked == true ? "0" : "1";
 			ProcessUtil.LaunchProcess(bash, $"\"{c}\" {transparancy} {watermark} \"{wallpapaer}\" {lightTheme}", false, false);
+
+			int watermark_check = activationWatermark.IsChecked == true ? 3 : 4;
+			Reg.SetDWORDValue(@"HKLM\SYSTEM\CurrentControlSet\Services\svsvc", "Start", watermark_check, true);
+
 			Close();
 		}
 

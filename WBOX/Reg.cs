@@ -29,5 +29,25 @@ namespace WBOX
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 		}
+
+        public static void SetDWORDValue(string path, string key, int value, bool admin)
+		{
+			try
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = "reg.exe",
+                    Arguments = $@"add ""{path}"" /v {key} /t REG_DWORD /d ""{value}"" /f",
+                    Verb = "runas",
+                    UseShellExecute = true,
+                    CreateNoWindow = false
+                };
+                Process.Start(startInfo).WaitForExit();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+		}
 	}
 }
