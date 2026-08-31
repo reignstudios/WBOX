@@ -1,3 +1,17 @@
 <Solution>
-  <Project Path="WBOX/WBOX.csproj" Id="83e8308f-828f-46ac-b886-10a3f53e721d" />
+  <Configurations>
+    <Platform Name="Any CPU" />
+    <Platform Name="ARM" />
+    <Platform Name="ARM64" />
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="WBOX.FSE/WBOX.FSE.wapproj" Type="c7167f0d-bc9f-4e6e-afe1-012c56b48db5" Id="f3ddff42-ee4e-4d02-805b-d1186484d30b">
+    <Deploy />
+  </Project>
+  <Project Path="WBOX/WBOX.csproj" Id="83e8308f-828f-46ac-b886-10a3f53e721d">
+    <Platform Solution="*|ARM64" Project="ARM64" />
+    <Platform Solution="*|x64" Project="x64" />
+    <Platform Solution="*|x86" Project="x86" />
+  </Project>
 </Solution>

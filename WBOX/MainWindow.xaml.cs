@@ -637,7 +637,7 @@ namespace WBOX
             LaunchGameApp(installPath, "", "PolymegaApp");
         }
 
-        /*private void WindowsStoreButton_Click(object sender, RoutedEventArgs e)
+        private void WindowsStoreButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
@@ -659,7 +659,7 @@ namespace WBOX
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-        }*/
+        }
 
         private void DesktopButton_Click(object sender, RoutedEventArgs e)
         {

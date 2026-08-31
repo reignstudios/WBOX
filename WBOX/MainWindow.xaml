@@ -55,8 +55,8 @@
 				</ListBox>
 				<Separator Margin="4"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-					<!--<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
-					<Button Content="Windows Settings" Margin="4" Click="WindowsSettingsButton_Click"/>-->
+					<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
+					<Button Content="Windows Settings" Margin="4" Click="WindowsSettingsButton_Click"/>
 					<Button Content="Desktop" Width="200" Margin="4" Click="DesktopButton_Click"/>
 					<Button Content="File Explorer" Width="200" Margin="4" Click="FileExplorerButton_Click"/>
 					<Button Content="Task Manager" Width="200" Margin="4" Click="TaskManagerButton_Click"/>
