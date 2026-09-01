@@ -7,17 +7,24 @@ Bypass explorer and even Win11 Xbox mode bloat if you only care about Steam for 
 Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should work.
 
 ## How to use
-* Download and Install (For upgrading, uninstall first)
-* Click "Enable Game Mode" (This will modify a single reg value and reboot)
-* NOTE: If the app fails to run you may need to disable "Smart App Control"
 * You can config Windows to skip login etc (optional: go to <u>Settings→Accounts→Sign-in</u> options and disable login after sleep)
 * Steam App Left/Right menus can be opened by holding Back/Select button then tapping Left/Right Bumper
 * In Control-Center, you can use a Gamepad to navigate
 * I suggest making Steam default boot into BigPicture mode (better after it updates). And disable Steams auto-start.
 
-## Optional: FSE (Full Screen Experience) / Xbox Mode
+## Portable/Optimized Install (Win10, Win11 etc)
+* Download and Install (For upgrading, uninstall first)
+* Click "Enable Game Mode" (This will modify a single reg value and reboot)
+* NOTE: If the app fails to run you may need to disable "Smart App Control"
+
+## FSE [Full Screen Experience] / Xbox Mode (Win11 Only)
 * You can install this tool in FSE mode giving you extended features (WinStore, Xbox bar etc)
-* 
+* You must put Win11 into Developer Mode: Settings => "System/Advanced/Developer Mode"
+* Then run "Install_WBOX_FSE.bat"
+* Now got to: Settings => "Gaming/XBOX mode"
+* Under "Choose home app" select WBOX.FSE
+* Then enable "Enter XBOX app on startup"
+* Reboot
 
 ### Gotchas
 * If Steams window is not fully in focus it may not detect virtual menu buttons (just click/tap it to focus it)

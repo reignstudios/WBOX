@@ -287,31 +287,65 @@ namespace WBOX
                         // use scan keys at Steam uses HID
                         if (device.BumperLeft.down)
                         {
-                            /*KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
-                            Thread.Sleep(100);
-                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_1);
-                            Thread.Sleep(100);
-                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_1);
-                            Thread.Sleep(100);
-                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);*/
+                            if (fseMode)
+                            {
+                                /*KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LCONTROL);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_1);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_1);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LCONTROL);*/
 
-                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LSHIFT);
-                            Thread.Sleep(100);
-                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_TAB);
-                            Thread.Sleep(100);
-                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_TAB);
-                            Thread.Sleep(100);
-                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LSHIFT);
+                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LSHIFT);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_TAB);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_TAB);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LSHIFT);
+                            }
+                            else
+                            {
+                                /*KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_1);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_1);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);*/
+
+                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LSHIFT);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_TAB);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_TAB);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LSHIFT);
+                            }
                         }
                         else if (device.BumperRight.down)
                         {
-                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
-                            Thread.Sleep(100);
-                            KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_2);
-                            Thread.Sleep(100);
-                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_2);
-                            Thread.Sleep(100);
-                            KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
+                            if (fseMode)
+                            {
+                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LCONTROL);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_2);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_2);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LCONTROL);
+                            }
+                            else
+                            {
+                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_2);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_2);
+                                Thread.Sleep(100);
+                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
+                            }
                         }
                     }
 
