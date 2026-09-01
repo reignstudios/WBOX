@@ -44,7 +44,7 @@ namespace WBOX
 
 		private void StartButton_Click(object sender, RoutedEventArgs e)
 		{
-            MainWindow.Instance.LaunchGameApp(pathTextBox.Text, argsTextBox.Text, System.IO.Path.GetFileNameWithoutExtension(pathTextBox.Text));
+            MainWindow.Instance.LaunchApp(pathTextBox.Text, argsTextBox.Text, System.IO.Path.GetFileNameWithoutExtension(pathTextBox.Text));
 		}
 
 		private void RemoveButton_Click(object sender, RoutedEventArgs e)

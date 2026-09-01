@@ -17,6 +17,8 @@ namespace WBOX
         public const ushort VK_LCONTROL = 0xA2;
         public const ushort VK_LSHIFT = 0xA0;
         public const ushort VK_TAB = 0x09;
+        public const ushort VK_LWIN = 0x5B;
+        public const ushort VK_G = 0x47;
 
         public const ushort SC_1 = 0x02;
         public const ushort SC_2 = 0x03;

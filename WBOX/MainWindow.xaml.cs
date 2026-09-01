@@ -26,6 +26,9 @@ namespace WBOX
 {
     public partial class MainWindow : Window
     {
+        private bool isInit;
+        private bool fseMode;
+
         public static MainWindow Instance { get; private set; }
         private AppSettings settings;
         private bool isDesktopMode;
@@ -45,6 +48,11 @@ namespace WBOX
             Instance = this;
             InitializeComponent();
             versionText.Text = $"v{VersionInfo.version}";
+
+            // bind events
+			ContentRendered += MainWindow_ContentRendered;// aka window shown
+            Loaded += MainWindow_Loaded;
+            Closed += MainWindow_Closed;
 
             // load settings
             settings = Settings.Load();
@@ -81,9 +89,22 @@ namespace WBOX
             customAppStackPanel.Items.Refresh();
 
             RefreshSettingChanges();
+        }
+
+		private void MainWindow_ContentRendered(object sender, EventArgs e)// aka window shown
+		{
+			if (isInit) return;
+            isInit = true;
+
+            // FSE Mode
+            fseMode = FSE.IsActive();
+            fsePanel.Visibility = fseMode ? Visibility.Visible : Visibility.Collapsed;
+            desktopButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
+            enableGameModeButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
+            disableGameModeButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
 
             // check desktop mode
-            isDesktopMode = Process.GetProcessesByName("explorer").Length != 0;
+            isDesktopMode = !fseMode && Process.GetProcessesByName("explorer").Length != 0;
 
             // default boot
             if (settings.DefaultBoot == AppSettings.DefaultBoot_ControlCenter)
@@ -146,10 +167,6 @@ namespace WBOX
             timer.Tick += Timer_Tick;
             timer.Start();
 
-            // bind events
-            Loaded += MainWindow_Loaded;
-            Closed += MainWindow_Closed;
-
             // init input
             inputThreadAlive = true;
             inputThread = new Thread(InputThread);
@@ -160,9 +177,9 @@ namespace WBOX
             //var winApps = Apps.GetWinApps();
             //var storeApps = Apps.GetStoreApps();
             //var app = storeApps.FirstOrDefault(x => x.Name.ToLower().Contains("codex"));
-        }
+		}
 
-        private void RefreshSettingChanges()
+		private void RefreshSettingChanges()
         {
             defaultBoot_Steam.Visibility = steamButton.Visibility = steamButtonOptions.Visibility = settings.SteamEnabled ? Visibility.Visible : Visibility.Collapsed;
             defaultBoot_Playnite.Visibility = playniteButton.Visibility = settings.PlayniteEnabled ? Visibility.Visible : Visibility.Collapsed;
@@ -210,7 +227,7 @@ namespace WBOX
 		private void CustomAppButton_Click(object sender, RoutedEventArgs e)
 		{
 			var customApp = (CustomAppSettings)((Button)sender).Tag;
-            LaunchGameApp(customApp.Path, customApp.Args, System.IO.Path.GetFileNameWithoutExtension(customApp.Path));
+            LaunchApp(customApp.Path, customApp.Args, System.IO.Path.GetFileNameWithoutExtension(customApp.Path));
 		}
 
 		private void InputThread()
@@ -287,23 +304,26 @@ namespace WBOX
 		
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            keyboardHook = new KeyboardHook();
-            keyboardHook.OnKeyPressed += (s, args) =>
+            if (!fseMode)
             {
-                const float volumeStep = 1f / 20f;
-                if (args.Key == Key.VolumeUp)
+                keyboardHook = new KeyboardHook();
+                keyboardHook.OnKeyPressed += (s, args) =>
                 {
-                    VolumeWindow.AdjustVolume(volumeStep);
-                }
-                else if (args.Key == Key.VolumeDown)
-                {
-                    VolumeWindow.AdjustVolume(-volumeStep);
-                }
-                else if (args.Key == Key.VolumeMute)
-                {
-                    VolumeWindow.MuteToggle();
-                }
-            };
+                    const float volumeStep = 1f / 20f;
+                    if (args.Key == Key.VolumeUp)
+                    {
+                        VolumeWindow.AdjustVolume(volumeStep);
+                    }
+                    else if (args.Key == Key.VolumeDown)
+                    {
+                        VolumeWindow.AdjustVolume(-volumeStep);
+                    }
+                    else if (args.Key == Key.VolumeMute)
+                    {
+                        VolumeWindow.MuteToggle();
+                    }
+                };
+            }
         }
 
         private void MainWindow_Closed(object sender, EventArgs e)
@@ -367,7 +387,7 @@ namespace WBOX
             virtualMouseActive = IsActive && WindowState == WindowState.Maximized;
 
             // lazy watch for app state
-            if (!string.IsNullOrEmpty(watchedProcessName))
+            if (!fseMode && !string.IsNullOrEmpty(watchedProcessName))
             {
                 var processes = Process.GetProcessesByName(watchedProcessName);
                 bool isAlive = processes != null && processes.Length > 0;
@@ -390,7 +410,7 @@ namespace WBOX
             }
         }
 
-        public void LaunchGameApp(string path, string args, string watchProcessName)
+        public void LaunchApp(string path, string args, string watchProcessName)
         {
             watchedProcessName = null;
             try
@@ -405,13 +425,16 @@ namespace WBOX
                 };
                 watchedProcess = new Process { StartInfo = startInfo };
                 watchedProcess.EnableRaisingEvents = true;
-                watchedProcess.Exited += SteamProcess_Exited;
+                watchedProcess.Exited += WatchedProcess_Exited;
                 watchedProcess.Start();
                 watchedProcessName = watchProcessName;
 
                 // minimize window to reduce overhead
-                WindowState = WindowState.Minimized;
-                minButton.Visibility = Visibility.Visible;
+                if (!fseMode)
+                {
+                    WindowState = WindowState.Minimized;
+                    minButton.Visibility = Visibility.Visible;
+                }
             }
             catch (Exception ex)
             {
@@ -420,7 +443,7 @@ namespace WBOX
             }
         }
 
-        private void SteamProcess_Exited(object sender, EventArgs e)
+        private void WatchedProcess_Exited(object sender, EventArgs e)
         {
             try
             {
@@ -467,7 +490,7 @@ namespace WBOX
             }
 
             // launch
-            LaunchGameApp(installPath, args.Trim(), "steam");
+            LaunchApp(installPath, args.Trim(), "steam");
         }
 
         private void PlayniteButton_Click(object sender, RoutedEventArgs e)
@@ -488,7 +511,7 @@ namespace WBOX
             }
 
             // launch
-            LaunchGameApp(installPath, "", "Playnite.DesktopApp");
+            LaunchApp(installPath, "", "Playnite.DesktopApp");
         }
 
         private void GOGButton_Click(object sender, RoutedEventArgs e)
@@ -508,7 +531,7 @@ namespace WBOX
             }
 
             // launch
-            LaunchGameApp(installPath, "", "GalaxyClient");
+            LaunchApp(installPath, "", "GalaxyClient");
         }
 
         private void ItchioButton_Click(object sender, RoutedEventArgs e)
@@ -533,7 +556,7 @@ namespace WBOX
             }
 
             // launch
-            LaunchGameApp(installPath, "--prefer-launch --appname itch", "itch");
+            LaunchApp(installPath, "--prefer-launch --appname itch", "itch");
         }
 
         private void EpicButton_Click(object sender, RoutedEventArgs e)
@@ -553,7 +576,7 @@ namespace WBOX
             }
 
             // launch
-            LaunchGameApp(installPath, "", "EpicGamesLauncher");
+            LaunchApp(installPath, "", "EpicGamesLauncher");
         }
 
         private void UbisoftButton_Click(object sender, RoutedEventArgs e)
@@ -573,7 +596,7 @@ namespace WBOX
             }
 
             // launch
-            LaunchGameApp(installPath, "", "upc");
+            LaunchApp(installPath, "", "upc");
         }
 
         private void EAButton_Click(object sender, RoutedEventArgs e)
@@ -594,7 +617,7 @@ namespace WBOX
             }
 
             // launch
-            LaunchGameApp(installPath, "", "EADesktop");
+            LaunchApp(installPath, "", "EADesktop");
         }
 
         private void BattlenetButton_Click(object sender, RoutedEventArgs e)
@@ -614,7 +637,7 @@ namespace WBOX
             }
 
             // launch
-            LaunchGameApp(installPath, "", "Battle.net");
+            LaunchApp(installPath, "", "Battle.net");
         }
 
         private void PolymegaButton_Click(object sender, RoutedEventArgs e)
@@ -634,7 +657,7 @@ namespace WBOX
             }
 
             // launch
-            LaunchGameApp(installPath, "", "PolymegaApp");
+            LaunchApp(installPath, "", "PolymegaApp");
         }
 
         private void WindowsStoreButton_Click(object sender, RoutedEventArgs e)
@@ -654,6 +677,24 @@ namespace WBOX
             try
             {
                 Process.Start("ms-settings:");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void XboxGameBarButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LWIN);
+                Thread.Sleep(100);
+                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_G);
+                Thread.Sleep(100);
+                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_G);
+                Thread.Sleep(100);
+                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LWIN);
             }
             catch (Exception ex)
             {

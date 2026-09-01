@@ -55,11 +55,14 @@
 				</ListBox>
 				<Separator Margin="4"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-					<Button Content="Windows Store" Margin="4" Click="WindowsStoreButton_Click"/>
-					<Button Content="Windows Settings" Margin="4" Click="WindowsSettingsButton_Click"/>
-					<Button Content="Desktop" Width="200" Margin="4" Click="DesktopButton_Click"/>
+					<Button Name="desktopButton" Content="Desktop" Width="200" Margin="4" Click="DesktopButton_Click"/>
 					<Button Content="File Explorer" Width="200" Margin="4" Click="FileExplorerButton_Click"/>
 					<Button Content="Task Manager" Width="200" Margin="4" Click="TaskManagerButton_Click"/>
+				</StackPanel>
+				<StackPanel Name="fsePanel" Orientation="Horizontal" HorizontalAlignment="Center">
+					<Button Content="Windows Store" Width="256" Margin="4" Click="WindowsStoreButton_Click"/>
+					<Button Content="Windows Settings" Width="256" Margin="4" Click="WindowsSettingsButton_Click"/>
+					<Button Content="Xbox Game Bar" Width="256" Margin="4" Click="XboxGameBarButton_Click"/>
 				</StackPanel>
 				<Separator Margin="4"/>
 				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
@@ -68,8 +71,8 @@
 					<Button Content="Shutdown" Width="200" Margin="4" Click="ShutdownButton_Click" Background="DarkRed"/>
 				</StackPanel>
 				<Separator Margin="4"/>
-				<Button Content="Enable Game Mode" Margin="4" Click="EnableGameModeButton_Click"/>
-				<Button Content="Disable Game Mode" Margin="4" Click="DisableGameModeButton_Click"/>
+				<Button Name="enableGameModeButton" Content="Enable Game Mode" Margin="4" Click="EnableGameModeButton_Click"/>
+				<Button Name="disableGameModeButton" Content="Disable Game Mode" Margin="4" Click="DisableGameModeButton_Click"/>
 				<Button Content="Auto Login Manager" Margin="4" Click="AutoLoginManagerButton_Click"/>
 				<Button Content="Desktop Settings" Margin="4" Click="DesktopSettingsButton_Click" ToolTip="Windows Activation not required"/>
 			</StackPanel>

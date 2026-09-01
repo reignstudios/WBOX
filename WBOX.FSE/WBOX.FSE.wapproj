@@ -112,9 +112,7 @@
     <Content Include="Images\Square44x44Logo.targetsize-24_altform-unplated.png" />
     <Content Include="Images\StoreLogo.png" />
     <Content Include="Images\Wide310x150Logo.scale-200.png" />
-    <Content Include="Install.bat">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <None Include="Install.bat" />
     <None Include="WBOX.FSE_TemporaryKey.pfx" />
   </ItemGroup>
   <Import Project="$(WapProjPath)\Microsoft.DesktopBridge.targets" />
@@ -124,4 +122,7 @@
   <ItemGroup>
     <ProjectReference Include="..\WBOX\WBOX.csproj" />
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="_GenerateAppxPackage">
+    <Exec Command='copy /Y "$(MSBuildProjectDirectory)\Install.bat" "$(MSBuildProjectDirectory)\AppPackages\WBOX.FSE_1.2.0.0_Test\Install.bat"' />
+  </Target>
 </Project>
