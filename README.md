@@ -29,8 +29,12 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should wo
 ### Gotchas
 * If Steams window is not fully in focus it may not detect virtual menu buttons (just click/tap it to focus it)
 
+## HDR
+* WBOX has a Auto-HDR tool which will read EDID and create a calibration for you
+* You can test its results using this tool: https://www.wide-gamut.com/test/image-hdr
+
 ### Other info
-The reg value changed is "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell" (yes thats it)<br>
+The reg value changed is "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell" (yes thats it, unless you're using FSE)<br>
 If you ever need to manually revert simply do these steps (but Control Center does it for you)
 * Open Task-Manager (can be done with Ctrl+Alt+Del)
 * Click "Run new task" and enter "regedit"

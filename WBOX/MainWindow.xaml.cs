@@ -100,7 +100,7 @@ namespace WBOX
             // FSE Mode
             fseMode = FSE.IsActive();
             fsePanel.Visibility = fseMode ? Visibility.Visible : Visibility.Collapsed;
-            autoMinCheckbox.Visibility = fseMode ? Visibility.Visible : Visibility.Collapsed;
+            autoMinCheckbox.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
             desktopButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
             enableGameModeButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
             disableGameModeButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
@@ -115,11 +115,7 @@ namespace WBOX
             }
             else
             {
-                if (!isDesktopMode)
-                {
-                    await Task.Delay(1000);
-                    if (!fseMode) WindowState = WindowState.Minimized;
-                }
+                if (!isDesktopMode && !fseMode) WindowState = WindowState.Minimized;
 
                 if (settings.DefaultBoot == AppSettings.DefaultBoot_Steam)
                 {
@@ -166,6 +162,9 @@ namespace WBOX
                     defaultBoot_Polymega.IsChecked = true;
                     if (!isDesktopMode) PolymegaButton_Click(null, null);
                 }
+
+                // add extra delay for auto boot splash
+                if (!isDesktopMode) await Task.Delay(1000);
             }
 
             // watch for app activity
@@ -287,15 +286,15 @@ namespace WBOX
                         // use scan keys at Steam uses HID
                         if (device.BumperLeft.down)
                         {
-                            if (fseMode)
+                            /*if (fseMode)
                             {
-                                /*KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LCONTROL);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_1);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_1);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LCONTROL);*/
+                                //KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LCONTROL);
+                                //Thread.Sleep(100);
+                                //KeyboardSimulator.KeyDown(KeyboardSimulator.VK_1);
+                                //Thread.Sleep(100);
+                                //KeyboardSimulator.KeyUp(KeyboardSimulator.VK_1);
+                                //Thread.Sleep(100);
+                                //KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LCONTROL);
 
                                 KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LSHIFT);
                                 Thread.Sleep(100);
@@ -305,15 +304,15 @@ namespace WBOX
                                 Thread.Sleep(100);
                                 KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LSHIFT);
                             }
-                            else
+                            else*/
                             {
-                                /*KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_1);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_1);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);*/
+                                //KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                                //Thread.Sleep(100);
+                                //KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_1);
+                                //Thread.Sleep(100);
+                                //KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_1);
+                                //Thread.Sleep(100);
+                                //KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
 
                                 KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LSHIFT);
                                 Thread.Sleep(100);
@@ -326,7 +325,7 @@ namespace WBOX
                         }
                         else if (device.BumperRight.down)
                         {
-                            if (fseMode)
+                            /*if (fseMode)
                             {
                                 KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LCONTROL);
                                 Thread.Sleep(100);
@@ -336,7 +335,7 @@ namespace WBOX
                                 Thread.Sleep(100);
                                 KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LCONTROL);
                             }
-                            else
+                            else*/
                             {
                                 KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
                                 Thread.Sleep(100);
