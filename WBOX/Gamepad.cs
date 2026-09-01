@@ -92,11 +92,11 @@ namespace WBOX
 
 	public sealed unsafe class XInputInstance
 	{
-		public const string lib_1_1 = "xinput1_1.dll";
-		public const string lib_1_2 = "xinput1_2.dll";
-		public const string lib_1_3 = "xinput1_3.dll";
-		public const string lib_1_4 = "xinput1_4.dll";
-		public const string lib_9_1_0 = "XInput9_1_0.dll";
+		private const string lib_1_1 = "xinput1_1.dll";
+		private const string lib_1_2 = "xinput1_2.dll";
+		private const string lib_1_3 = "xinput1_3.dll";
+		private const string lib_1_4 = "xinput1_4.dll";
+		private const string lib_9_1_0 = "XInput9_1_0.dll";
 
 		[DllImport("Kernel32.dll", CallingConvention = CallingConvention.StdCall)]
 		private static extern HMODULE LoadLibraryW(char* lpLibFileName);

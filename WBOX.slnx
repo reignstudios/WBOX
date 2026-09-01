@@ -21,8 +21,6 @@
     <Platform Solution="Release|ARM" Project="x64" />
   </Project>
   <Project Path="WBOX_VirtualHID/WBOX_VirtualHID.vcxproj" Id="5ed3b26d-b3ad-4546-96a1-90293c4609c6">
-    <Platform Solution="*|ARM" Project="x64" />
-    <Platform Solution="Debug|ARM64" Project="x64" />
-    <Platform Solution="Debug|x86" Project="x64" />
+    <Platform Project="x64" />
   </Project>
 </Solution>

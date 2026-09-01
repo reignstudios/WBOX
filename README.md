@@ -33,6 +33,11 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should wo
 * WBOX has a Auto-HDR tool which will read EDID and create a calibration for you
 * You can test its results using this tool: https://www.wide-gamut.com/test/image-hdr
 
+## Optional: Virtual HID
+* If Left/Right menus are not working well you can install: libvirtualhid (v2026.901.116.32)
+* Download and install the driver: https://github.com/LizardByte/libvirtualhid/releases#release-v2026.901.116.32
+* WBOX will auto detect and use it if available
+
 ### Other info
 The reg value changed is "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell" (yes thats it, unless you're using FSE)<br>
 If you ever need to manually revert simply do these steps (but Control Center does it for you)
@@ -42,8 +47,15 @@ If you ever need to manually revert simply do these steps (but Control Center do
 * Click "Run new task" again and enter "explorer.exe"
 * Everything should work as normal again.
 
-### Known issues
-* If TDP control requires Xbox Gamebar and this is a must for you, this tool may not be for you.
-* UWP/WinRT style apps don't tend to work as they require extra bloat explorer loads.
+### Build
+* VS 2026
+* .NETFW 4.7.2
+* VC++
+* For VirtualHID
+    - Create a folder next to WBOX called "WBOX_VirtualDriver" then open terminal
+    - git clone --recurse-submodules --branch v2026.829.2338.54 --depth 1 https://github.com/LizardByte/libvirtualhid.git
+    - cmake -S . -B build-vs2026 -G "Visual Studio 18 2026" -A x64 -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=ON -DBUILD_DOCS=OFF -DLIBVIRTUALHID_BUILD_TOOLS=ON -DLIBVIRTUALHID_BUILD_WINDOWS_DRIVER=OFF -DLIBVIRTUALHID_INSTALL=ON
+    - cmake --build build-vs2026 --config Debug --target libvirtualhid
+    - cmake --build build-vs2026 --config Release --target libvirtualhid
 
 ![Screenshots](./WBOX/Logo.jpg)
