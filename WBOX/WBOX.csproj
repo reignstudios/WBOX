@@ -222,6 +222,7 @@
     </Compile>
     <Compile Include="FSE.cs" />
     <Compile Include="Gamepad.cs" />
+    <Compile Include="HDR.cs" />
     <Compile Include="KeyboardSimulator.cs" />
     <Compile Include="MouseSimulator.cs" />
     <Compile Include="ProcessUtil.cs" />
@@ -300,6 +301,10 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Logo.jpg" />
+    <Content Include="WBOX_AutoHDR.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="WBOX_Watchdog.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

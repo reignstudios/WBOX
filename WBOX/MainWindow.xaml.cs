@@ -48,6 +48,7 @@ namespace WBOX
             Instance = this;
             InitializeComponent();
             versionText.Text = $"v{VersionInfo.version}";
+            splashImage.Visibility = Visibility.Visible;
 
             // bind events
 			ContentRendered += MainWindow_ContentRendered;// aka window shown
@@ -91,7 +92,7 @@ namespace WBOX
             RefreshSettingChanges();
         }
 
-		private void MainWindow_ContentRendered(object sender, EventArgs e)// aka window shown
+		private async void MainWindow_ContentRendered(object sender, EventArgs e)// aka window shown
 		{
 			if (isInit) return;
             isInit = true;
@@ -99,6 +100,7 @@ namespace WBOX
             // FSE Mode
             fseMode = FSE.IsActive();
             fsePanel.Visibility = fseMode ? Visibility.Visible : Visibility.Collapsed;
+            autoMinCheckbox.Visibility = fseMode ? Visibility.Visible : Visibility.Collapsed;
             desktopButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
             enableGameModeButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
             disableGameModeButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
@@ -113,7 +115,12 @@ namespace WBOX
             }
             else
             {
-                if (!isDesktopMode) WindowState = WindowState.Minimized;
+                if (!isDesktopMode)
+                {
+                    await Task.Delay(1000);
+                    if (!fseMode) WindowState = WindowState.Minimized;
+                }
+
                 if (settings.DefaultBoot == AppSettings.DefaultBoot_Steam)
                 {
                     defaultBoot_Steam.IsChecked = true;
@@ -177,7 +184,26 @@ namespace WBOX
             //var winApps = Apps.GetWinApps();
             //var storeApps = Apps.GetStoreApps();
             //var app = storeApps.FirstOrDefault(x => x.Name.ToLower().Contains("codex"));
+
+            // fade splash out
+            FadeOutSplash();
 		}
+
+        private async void FadeOutSplash()
+        {
+            await Task.Delay(1000);
+
+            var fade = new DoubleAnimation
+            {
+                From = splashImage.Opacity,
+                To = 0.0,
+                Duration = TimeSpan.FromSeconds(0.5)
+            };
+
+            splashImage.BeginAnimation(UIElement.OpacityProperty, fade);
+            await Task.Delay(1000);
+            splashImage.Visibility = Visibility.Hidden;
+        }
 
 		private void RefreshSettingChanges()
         {
@@ -447,11 +473,14 @@ namespace WBOX
         {
             try
             {
-                Dispatcher.InvokeAsync(new Action(() =>
+                if (!fseMode)
                 {
-                    WindowState = WindowState.Maximized;
-                    minButton.Visibility = Visibility.Hidden;
-                }));
+                    Dispatcher.InvokeAsync(new Action(() =>
+                    {
+                        WindowState = WindowState.Maximized;
+                        minButton.Visibility = Visibility.Hidden;
+                    }));
+                }
                 watchedProcess.Dispose();
                 watchedProcess = null;
             }
@@ -844,6 +873,31 @@ namespace WBOX
             manager.Owner = this;
             manager.ShowDialog();
         }
+
+        private void HDRAutoCalibrationButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("This will read EDID and Auto-Configure a HDR profile.\nNOTE: this may remove your existing one", "NOTE", MessageBoxButton.OKCancel, MessageBoxImage.Information) != MessageBoxResult.OK) return;
+
+            try
+            {
+                string path = System.IO.Path.Combine(System.IO.Path.GetDirectoryName(System.Reflection.Assembly.GetEntryAssembly().Location), "WBOX_AutoHDR.exe");
+                Process.Start(path);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        private void EnableHDRButton_Click(object sender, RoutedEventArgs e)
+		{
+            HDR.SetHdr(true);
+		}
+
+        private void DisableHDRButton_Click(object sender, RoutedEventArgs e)
+		{
+            HDR.SetHdr(false);
+		}
 
         private void MinButton_Click(object sender, RoutedEventArgs e)
         {

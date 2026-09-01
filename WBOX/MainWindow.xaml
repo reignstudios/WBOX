@@ -75,6 +75,11 @@
 				<Button Name="disableGameModeButton" Content="Disable Game Mode" Margin="4" Click="DisableGameModeButton_Click"/>
 				<Button Content="Auto Login Manager" Margin="4" Click="AutoLoginManagerButton_Click"/>
 				<Button Content="Desktop Settings" Margin="4" Click="DesktopSettingsButton_Click" ToolTip="Windows Activation not required"/>
+				<Button Content="HDR Auto Calibration" Margin="4" Click="HDRAutoCalibrationButton_Click" ToolTip="This will auto calibrate and enable HDR using EDID"/>
+				<StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+					<Button Content="Enable HDR" Width="256" Click="EnableHDRButton_Click"/>
+					<Button Content="Disable HDR" Width="256" Click="DisableHDRButton_Click"/>
+				</StackPanel>
 			</StackPanel>
 		</ScrollViewer>
 
@@ -111,5 +116,7 @@
 			</StackPanel>
 			<Button Content="Done" HorizontalAlignment="Right" VerticalAlignment="Bottom" Width="128" Margin="4" Click="SettingsDoneButton_Click"/>
 		</Grid>
+
+		<Image Name="splashImage" Source="/Logo.jpg" Stretch="UniformToFill" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
 	</Grid>
 </Window>
