@@ -43,6 +43,8 @@ namespace WBOX
         private bool inputThreadAlive;
         private bool virtualMouseActive;
 
+        private bool useUserSpaceVirtualKeyboard;
+
         public MainWindow()
         {
             Instance = this;
@@ -107,6 +109,9 @@ namespace WBOX
 
             // check desktop mode
             isDesktopMode = !fseMode && Process.GetProcessesByName("explorer").Length != 0;
+
+            // init virtual hid
+            useUserSpaceVirtualKeyboard = !VirtualHID.Init();
 
             // default boot
             if (settings.DefaultBoot == AppSettings.DefaultBoot_ControlCenter)
@@ -286,25 +291,7 @@ namespace WBOX
                         // use scan keys at Steam uses HID
                         if (device.BumperLeft.down)
                         {
-                            /*if (fseMode)
-                            {
-                                //KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LCONTROL);
-                                //Thread.Sleep(100);
-                                //KeyboardSimulator.KeyDown(KeyboardSimulator.VK_1);
-                                //Thread.Sleep(100);
-                                //KeyboardSimulator.KeyUp(KeyboardSimulator.VK_1);
-                                //Thread.Sleep(100);
-                                //KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LCONTROL);
-
-                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LSHIFT);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_TAB);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_TAB);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LSHIFT);
-                            }
-                            else*/
+                            if (useUserSpaceVirtualKeyboard)
                             {
                                 //KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
                                 //Thread.Sleep(100);
@@ -322,20 +309,15 @@ namespace WBOX
                                 Thread.Sleep(100);
                                 KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LSHIFT);
                             }
+                            else
+                            {
+                                VirtualHID.TriggerLeftMenu();
+                                //VirtualHID.TriggerLeftInGameMenu();
+                            }
                         }
                         else if (device.BumperRight.down)
                         {
-                            /*if (fseMode)
-                            {
-                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_LCONTROL);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyDown(KeyboardSimulator.VK_2);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_2);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUp(KeyboardSimulator.VK_LCONTROL);
-                            }
-                            else*/
+                            if (useUserSpaceVirtualKeyboard)
                             {
                                 KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
                                 Thread.Sleep(100);
@@ -344,6 +326,10 @@ namespace WBOX
                                 KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_2);
                                 Thread.Sleep(100);
                                 KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
+                            }
+                            else
+                            {
+                                VirtualHID.TriggerRightMenu();
                             }
                         }
                     }
@@ -388,8 +374,9 @@ namespace WBOX
         private void MainWindow_Closed(object sender, EventArgs e)
         {
             inputThreadAlive = false;
-            if (keyboardHook != null) keyboardHook.Dispose();
             SaveSettings();
+            if (keyboardHook != null) keyboardHook.Dispose();
+            VirtualHID.Dispose();
         }
 
 		private void SaveSettings()

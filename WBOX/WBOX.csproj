@@ -229,6 +229,7 @@
     <Compile Include="Reg.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Utils.cs" />
+    <Compile Include="VirtualHID.cs" />
     <Compile Include="VolumeWindow.xaml.cs">
       <DependentUpon>VolumeWindow.xaml</DependentUpon>
     </Compile>
@@ -287,6 +288,14 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <Content Include="..\WBOX_AutoHDR\Build\WBOX_AutoHDR.exe">
+      <Link>WBOX_AutoHDR.exe</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\WBOX_VirtualHID\Build\WBOX_VirtualHID.dll">
+      <Link>WBOX_VirtualHID.dll</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="AutoLogin.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -302,9 +311,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <Resource Include="Logo.jpg" />
-    <Content Include="WBOX_AutoHDR.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Content Include="WBOX_Watchdog.bat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
