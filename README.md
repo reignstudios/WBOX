@@ -26,6 +26,7 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should wo
 * Under "Choose home app" select WBOX.FSE
 * Then enable "Enter XBOX app on startup"
 * Reboot
+* NOTE: Left/Right menu commands don't work from gamepad in FSE mode (Unless you use HHC) https://github.com/Valkirie/HandheldCompanion
 
 ### Gotchas
 * If Steams window is not fully in focus it may not detect virtual menu buttons (just click/tap it to focus it)
