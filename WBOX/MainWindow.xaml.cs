@@ -173,7 +173,7 @@ namespace WBOX
                 }
 
                 // add extra delay for auto boot splash
-                if (!isDesktopMode) await Task.Delay(1000);
+                if (!isDesktopMode) await Task.Delay(5000);
             }
 
             // watch for app activity
