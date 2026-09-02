@@ -52,20 +52,19 @@ static bool Submit(lvh::Keyboard& kb, lvh::KeyboardKeyCode vk, std::uint16_t sca
     return st.ok();
 }
 
-static bool SendChord(lvh::Keyboard& kb, lvh::KeyboardKeyCode secondVk, std::uint16_t secondScan, int delayMs)
+static void SendChord(lvh::Keyboard& kb, lvh::KeyboardKeyCode secondVk, std::uint16_t secondScan, int delayMs)
 {
-    if (!Submit(kb, kVkLControl, kScanLControl, true)) return false;
+    Submit(kb, kVkLControl, kScanLControl, true);
     SleepMs(delayMs);
 
-    if (!Submit(kb, secondVk, secondScan, true)) return false;
+    Submit(kb, secondVk, secondScan, true);
     SleepMs(delayMs);
 
-    if (!Submit(kb, secondVk, secondScan, false)) return false;
+    Submit(kb, secondVk, secondScan, false);
     SleepMs(delayMs);
 
-    if (!Submit(kb, kVkLControl, kScanLControl, false)) return false;
+    Submit(kb, kVkLControl, kScanLControl, false);
     SleepMs(delayMs);
-    return true;
 }
 
 // ===========================================

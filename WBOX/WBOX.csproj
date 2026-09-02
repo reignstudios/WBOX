@@ -225,6 +225,7 @@
     <Compile Include="HDR.cs" />
     <Compile Include="KeyboardSimulator.cs" />
     <Compile Include="MouseSimulator.cs" />
+    <Compile Include="NativeUtils.cs" />
     <Compile Include="ProcessUtil.cs" />
     <Compile Include="Reg.cs" />
     <Compile Include="Settings.cs" />
@@ -290,6 +291,10 @@
     </EmbeddedResource>
     <Content Include="..\WBOX_AutoHDR\Build\WBOX_AutoHDR.exe">
       <Link>WBOX_AutoHDR.exe</Link>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\WBOX_NativeUtils\Build\WBOX_NativeUtils.dll">
+      <Link>WBOX_NativeUtils.dll</Link>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\WBOX_VirtualHID\Build\WBOX_VirtualHID.dll">

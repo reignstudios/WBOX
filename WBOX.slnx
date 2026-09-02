@@ -11,14 +11,18 @@
   </Project>
   <Project Path="WBOX/WBOX.csproj" Id="83e8308f-828f-46ac-b886-10a3f53e721d">
     <BuildDependency Project="WBOX_AutoHDR/WBOX_AutoHDR.vcxproj" />
+    <BuildDependency Project="WBOX_NativeUtils/WBOX_NativeUtils.vcxproj" />
     <BuildDependency Project="WBOX_VirtualHID/WBOX_VirtualHID.vcxproj" />
     <Platform Solution="*|ARM64" Project="ARM64" />
     <Platform Solution="*|x64" Project="x64" />
     <Platform Solution="*|x86" Project="x86" />
   </Project>
   <Project Path="WBOX_AutoHDR/WBOX_AutoHDR.vcxproj" Id="45e98bf0-e465-40a2-87f5-30fd77950735">
-    <Platform Solution="Debug|ARM" Project="Win32" />
-    <Platform Solution="Release|ARM" Project="x64" />
+    <Platform Solution="*|ARM" Project="Win32" />
+  </Project>
+  <Project Path="WBOX_NativeUtils/WBOX_NativeUtils.vcxproj" Id="c791b0d6-4df3-4767-98eb-133f21abfcfe">
+    <Platform Solution="*|ARM" Project="x64" />
+    <Platform Solution="*|x86" Project="x64" />
   </Project>
   <Project Path="WBOX_VirtualHID/WBOX_VirtualHID.vcxproj" Id="5ed3b26d-b3ad-4546-96a1-90293c4609c6">
     <Platform Project="x64" />

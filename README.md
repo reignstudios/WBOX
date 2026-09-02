@@ -16,6 +16,7 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should wo
 * Download and Install (For upgrading, uninstall first)
 * Click "Enable Game Mode" (This will modify a single reg value and reboot)
 * NOTE: If the app fails to run you may need to disable "Smart App Control"
+* Optional: Use HHC as an alternative for TDP control (no FSE requied) https://github.com/Valkirie/HandheldCompanion
 
 ## FSE [Full Screen Experience] / Xbox Mode (Win11 Only)
 * You can install this tool in FSE mode giving you extended features (WinStore, Xbox bar etc)

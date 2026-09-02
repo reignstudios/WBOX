@@ -44,6 +44,7 @@ namespace WBOX
         private bool virtualMouseActive;
 
         private bool useUserSpaceVirtualKeyboard;
+        private bool useWinGameInput;
 
         public MainWindow()
         {
@@ -106,6 +107,9 @@ namespace WBOX
             desktopButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
             enableGameModeButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
             disableGameModeButton.Visibility = !fseMode ? Visibility.Visible : Visibility.Collapsed;
+
+            // use GameInput if in FSE mode
+            //useWinGameInput = fseMode;
 
             // check desktop mode
             isDesktopMode = !fseMode && Process.GetProcessesByName("explorer").Length != 0;
@@ -181,7 +185,7 @@ namespace WBOX
             // init input
             inputThreadAlive = true;
             inputThread = new Thread(InputThread);
-            inputThread.IsBackground = true;
+            //inputThread.IsBackground = true;// just let it exit
             inputThread.Start();
 
             // TODO: add app list and custom launch button with custom args
@@ -262,16 +266,23 @@ namespace WBOX
 
 		private void InputThread()
 		{
-            // init xinput
-			try
+            // init input
+            if (useWinGameInput)
             {
-                xinput = new XInputInstance();
-                xinput.Init();
+                NativeUtils.InitInput();
             }
-            catch (Exception ex)
+            else
             {
-                MessageBox.Show(ex.Message, "XInput Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
+			    try
+                {
+                    xinput = new XInputInstance();
+                    xinput.Init();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "XInput Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
             }
 
             // update
@@ -279,72 +290,123 @@ namespace WBOX
             {
                 // capture at 60fps
                 Thread.Sleep(1000 / 60);
-                xinput.Update();
 
-                // check input events to relay
-                foreach (var device in xinput.devices)
+                // update input
+                bool leftMenu = false;
+                bool rightMenu = false;
+                int mouseDeltaX = 0;
+                int mouseDeltaY = 0;
+                bool mouseClick = false;
+                if (useWinGameInput)
                 {
-                    if (!device.connected) continue;
-
-                    if (device.Back.on)
+                    var device = NativeUtils.UpdateInput();
+                    if (device != null && device.Connected)
                     {
-                        // use scan keys at Steam uses HID
-                        if (device.BumperLeft.down)
+                        if (device.Back.on)
                         {
-                            if (useUserSpaceVirtualKeyboard)
+                            if (device.BumperLeft.down)
                             {
-                                //KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
-                                //Thread.Sleep(100);
-                                //KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_1);
-                                //Thread.Sleep(100);
-                                //KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_1);
-                                //Thread.Sleep(100);
-                                //KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
-
-                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LSHIFT);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_TAB);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_TAB);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LSHIFT);
+                               leftMenu = true;
                             }
-                            else
+                            else if (device.BumperRight.down)
                             {
-                                VirtualHID.TriggerLeftMenu();
-                                //VirtualHID.TriggerLeftInGameMenu();
+                                rightMenu = true;
                             }
                         }
-                        else if (device.BumperRight.down)
-                        {
-                            if (useUserSpaceVirtualKeyboard)
-                            {
-                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_2);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_2);
-                                Thread.Sleep(100);
-                                KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
-                            }
-                            else
-                            {
-                                VirtualHID.TriggerRightMenu();
-                            }
-                        }
-                    }
 
-                    // virtual mouse
-                    if (virtualMouseActive)
-                    {
-                        const int mouseSpeed = 10;
-                        int deltaX = (int)((device.JoystickLeft.value.x * mouseSpeed) + (device.JoystickRight.value.x * mouseSpeed));
-                        int deltaY = (int)((device.JoystickLeft.value.y * mouseSpeed) + (device.JoystickRight.value.y * mouseSpeed));
-                        MouseSimulator.MoveMouse(deltaX, -deltaY);
-                        if (device.A.down || device.BumperRight.down || device.TriggerButtonRight.down || device.BumperLeft.down || device.TriggerButtonLeft.down) MouseSimulator.LeftClick();
+                        // virtual mouse
+                        if (virtualMouseActive)
+                        {
+                            const int mouseSpeed = 10;
+                            mouseDeltaX = (int)((device.JoystickLeft.value.x * mouseSpeed) + (device.JoystickRight.value.x * mouseSpeed));
+                            mouseDeltaY = (int)((device.JoystickLeft.value.y * mouseSpeed) + (device.JoystickRight.value.y * mouseSpeed));
+                            if (device.A.down || device.BumperRight.down || device.TriggerButtonRight.down || device.BumperLeft.down || device.TriggerButtonLeft.down) mouseClick = true;
+                        }
                     }
                 }
+                else
+                {
+                    xinput.Update();
+                    foreach (var device in xinput.devices)
+                    {
+                        if (!device.connected) continue;
+
+                        if (device.Back.on)
+                        {
+                            if (device.BumperLeft.down)
+                            {
+                               leftMenu = true;
+                            }
+                            else if (device.BumperRight.down)
+                            {
+                                rightMenu = true;
+                            }
+                        }
+
+                        // virtual mouse
+                        if (virtualMouseActive)
+                        {
+                            const int mouseSpeed = 10;
+                            mouseDeltaX = (int)((device.JoystickLeft.value.x * mouseSpeed) + (device.JoystickRight.value.x * mouseSpeed));
+                            mouseDeltaY = (int)((device.JoystickLeft.value.y * mouseSpeed) + (device.JoystickRight.value.y * mouseSpeed));
+                            if (device.A.down || device.BumperRight.down || device.TriggerButtonRight.down || device.BumperLeft.down || device.TriggerButtonLeft.down) mouseClick = true;
+                        }
+                    }
+                }
+
+                if (leftMenu)
+                {
+                    if (useUserSpaceVirtualKeyboard)
+                    {
+                        //KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                        //Thread.Sleep(100);
+                        //KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_1);
+                        //Thread.Sleep(100);
+                        //KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_1);
+                        //Thread.Sleep(100);
+                        //KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
+
+                        KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LSHIFT);
+                        Thread.Sleep(100);
+                        KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_TAB);
+                        Thread.Sleep(100);
+                        KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_TAB);
+                        Thread.Sleep(100);
+                        KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LSHIFT);
+                    }
+                    else
+                    {
+                        VirtualHID.TriggerLeftMenu();
+                        //VirtualHID.TriggerLeftInGameMenu();
+                    }
+                }
+                else if (rightMenu)
+                {
+                    if (useUserSpaceVirtualKeyboard)
+                    {
+                        KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_LCONTROL);
+                        Thread.Sleep(100);
+                        KeyboardSimulator.KeyDownScan(KeyboardSimulator.SC_2);
+                        Thread.Sleep(100);
+                        KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_2);
+                        Thread.Sleep(100);
+                        KeyboardSimulator.KeyUpScan(KeyboardSimulator.SC_LCONTROL);
+                    }
+                    else
+                    {
+                        VirtualHID.TriggerRightMenu();
+                    }
+                }
+
+                // virtual mouse
+                if (virtualMouseActive)
+                {
+                    MouseSimulator.MoveMouse(mouseDeltaX, -mouseDeltaY);
+                    if (mouseClick) MouseSimulator.LeftClick();
+                }
             }
+
+            if (useWinGameInput) NativeUtils.DisposeInput();
 		}
 		
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
