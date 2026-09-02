@@ -11,7 +11,7 @@
   <Identity
     Name="b7e82ba5-dcdb-48e5-8d89-cf1cff218443"
     Publisher="CN=Reign-Studios"
-    Version="1.2.0.0" />
+    Version="1.2.1.0" />
 
   <Properties>
     <DisplayName>WBOX.FSE</DisplayName>

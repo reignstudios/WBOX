@@ -123,6 +123,6 @@
     <ProjectReference Include="..\WBOX\WBOX.csproj" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="_GenerateAppxPackage">
-    <Exec Command="copy /Y &quot;$(MSBuildProjectDirectory)\Install_WBOX_FSE.bat&quot; &quot;$(MSBuildProjectDirectory)\AppPackages\WBOX.FSE_1.2.0.0_Test\Install_WBOX_FSE.bat&quot;" />
+    <Exec Command="copy /Y &quot;$(MSBuildProjectDirectory)\Install_WBOX_FSE.bat&quot; &quot;$(MSBuildProjectDirectory)\AppPackages\WBOX.FSE_1.2.1.0_Test\Install_WBOX_FSE.bat&quot;" />
   </Target>
 </Project>
