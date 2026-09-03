@@ -13,20 +13,24 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should wo
 * I suggest making Steam default boot into BigPicture mode (better after it updates). And disable Steams auto-start.
 
 ## Portable/Optimized Install (Win10, Win11 etc)
+* Make sure VC++ redist is installed for your system architecture: [Download VC++ Redist](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version)
 * Download and Install (For upgrading, uninstall first)
 * Click "Enable Game Mode" (This will modify a single reg value and reboot)
 * NOTE: If the app fails to run you may need to disable "Smart App Control"
-* Optional: Use HHC as an alternative for TDP control (no FSE requied) https://github.com/Valkirie/HandheldCompanion
+* Optional: Use HHC as an alternative for TDP control (no FSE requied) [HHC Download](https://github.com/Valkirie/HandheldCompanion)
 
 ## FSE [Full Screen Experience] / Xbox Mode (Win11 Only)
 * You can install this tool in FSE mode giving you extended features (WinStore, Xbox bar etc)
+* NOTE: If this feature is not enabled, you can enable it with this tool: [XboxFullscreenExperienceTool](https://github.com/8bit2qubit/XboxFullscreenExperienceTool)
+* Make sure VC++ redist is installed for your system architecture: [Download VC++ Redist](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-supported-redistributable-version)
 * You must put Win11 into Developer Mode: Settings => "System/Advanced/Developer Mode"
+* Download and Install (For upgrading, uninstall first)
 * Then run "Install_WBOX_FSE.bat"
 * Now got to: Settings => "Gaming/XBOX mode"
 * Under "Choose home app" select WBOX.FSE
 * Then enable "Enter XBOX app on startup"
 * Reboot
-* NOTE: Left/Right menu commands don't work from gamepad in FSE mode (Unless you use HHC) https://github.com/Valkirie/HandheldCompanion
+* NOTE: Left/Right menu commands don't work from gamepad in FSE mode (Unless you use HHC) [HHC Download](https://github.com/Valkirie/HandheldCompanion)
 
 ### Gotchas
 * If Steams window is not fully in focus it may not detect virtual menu buttons (just click/tap it to focus it)
@@ -37,7 +41,7 @@ Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should wo
 
 ## Optional: Virtual HID
 * If Left/Right menus are not working well you can install: libvirtualhid (v2026.901.116.32)
-* Download and install the driver: https://github.com/LizardByte/libvirtualhid/releases#release-v2026.901.116.32
+* Download and install the driver: [VirtualHID Download](https://github.com/LizardByte/libvirtualhid/releases#release-v2026.901.116.32)
 * WBOX will auto detect and use it if available
 
 ### Other info
