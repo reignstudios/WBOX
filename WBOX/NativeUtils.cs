@@ -104,11 +104,11 @@ namespace WBOX
 				gamepadDevice = new Device();
 				return WBOX_NativeUtils_InitInput() != 0;
 			}
-			//catch { }
-			catch (Exception ex)
+			catch { }
+			/*catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+			}*/
 			return false;
 		}
 
@@ -118,11 +118,11 @@ namespace WBOX
 			{
 				WBOX_NativeUtils_DisposeInput();
 			}
-			//catch { }
-			catch (Exception ex)
+			catch { }
+			/*catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+			}*/
 		}
 
 		public static Device UpdateInput()
@@ -134,11 +134,11 @@ namespace WBOX
 				gamepadDevice.Update(gamepad);
 				return gamepadDevice;
 			}
-			//catch { }
-			catch (Exception ex)
+			catch { }
+			/*catch (Exception ex)
 			{
 				MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-			}
+			}*/
 
 			return null;
 		}
