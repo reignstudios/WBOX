@@ -1,3 +1,4 @@
+![Screenshots](./WBOX/Logo.jpg)
 # WBOX
 This is a Windows Consolizer tool supporting Win10, Win11, x86, x64, ARM32 and ARM64 (should also work on Win7 & Win8)<br>
 This tool can significantly reduce memory (by GBs) and CPU/GPU cycles for games<br>
@@ -64,5 +65,3 @@ Discord for this project is a channel in the ReignOS one: [Discord](https://disb
     - cmake -S . -B build-vs2026 -G "Visual Studio 18 2026" -A x64 -DBUILD_TESTS=OFF -DBUILD_EXAMPLES=ON -DBUILD_DOCS=OFF -DLIBVIRTUALHID_BUILD_TOOLS=ON -DLIBVIRTUALHID_BUILD_WINDOWS_DRIVER=OFF -DLIBVIRTUALHID_INSTALL=ON
     - cmake --build build-vs2026 --config Debug --target libvirtualhid
     - cmake --build build-vs2026 --config Release --target libvirtualhid
-
-![Screenshots](./WBOX/Logo.jpg)
