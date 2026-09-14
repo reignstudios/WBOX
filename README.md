@@ -5,7 +5,8 @@ This tool can significantly reduce memory (by GBs) and CPU/GPU cycles for games<
 You can use this with any Windows flavor like Tiny10 or Tiny11 as well.<br>
 Bypass explorer and even Win11 Xbox mode bloat if you only care about Steam for example.<br>
 
-Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should work.
+Steam, Playnite, GOG, Itch.io, Epic, Ubisoft, EA, Battlenet & Polymega should work.<br>
+WBOX is similar to AnyFSE but with a lightweight Control Center, HDR tools and menu tools etc. It also can run with even less overhead without FSE.
 
 ## How to use
 * You can config Windows to skip login etc (optional: go to <u>Settings→Accounts→Sign-in</u> options and disable login after sleep)
