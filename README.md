@@ -1,6 +1,7 @@
 ![Screenshots](./WBOX/Logo.jpg)
 # WBOX
 This is a Windows Consolizer tool supporting Win10, Win11, x86, x64, ARM32 and ARM64 (should also work on Win7 & Win8)<br>
+Desktop-PC, MiniPC & Handhelds all work<br>
 This tool can significantly reduce memory (by GBs) and CPU/GPU cycles for games<br>
 You can use this with any Windows flavor like Tiny10 or Tiny11 as well.<br>
 Bypass explorer and even Win11 Xbox mode bloat if you only care about Steam for example.<br>
