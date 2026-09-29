@@ -198,6 +198,21 @@ namespace WBOX
 
             // fade splash out
             FadeOutSplash();
+
+            // watch for display changes
+            SystemEvents.DisplaySettingsChanged += OnDisplaySettingsChanged;
+		}
+
+        private void OnDisplaySettingsChanged(object sender, EventArgs e)
+		{
+            if (!fseMode)
+            {
+			    Dispatcher.Invoke(() =>
+                {
+                    WindowState = WindowState.Minimized;
+                    WindowState = WindowState.Maximized;
+                });
+            }
 		}
 
         private async void FadeOutSplash()
@@ -543,8 +558,11 @@ namespace WBOX
                 watchedProcess.Start();
                 watchedProcessName = watchProcessName;
 
-                // minimize window to reduce overhead
-                if (!fseMode)
+                if (fseMode)// force window to foreground
+                {
+                    ProcessUtil.ForceForegroundAsync(watchedProcess);
+                }
+                else// minimize window to reduce overhead
                 {
                     WindowState = WindowState.Minimized;
                     minButton.Visibility = Visibility.Visible;
