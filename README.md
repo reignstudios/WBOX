@@ -55,6 +55,7 @@ If you ever need to manually revert simply do these steps (but Control Center do
 * Navigate to the "Shell" key listed above and change it to explorer.exe
 * Click "Run new task" again and enter "explorer.exe"
 * Everything should work as normal again.<br>
+
 Discord for this project is a channel in the ReignOS one: [Discord](https://disboard.org/server/1344845464175902750)
 
 ### Build
