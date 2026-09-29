@@ -64,6 +64,8 @@ namespace WBOX
             steamWindowedCheckbox.IsChecked = settings.SteamWindowed;
             steamBorderlessCheckbox.IsChecked = settings.SteamBorderless;
 
+            playniteFullscreenCheckbox.IsChecked = settings.PlayniteFullscreen;
+
             autoMinCheckbox.IsChecked = settings.AutoMinimize;
 
             steamEnabledCheckbox.IsChecked = settings.SteamEnabled;
@@ -82,6 +84,7 @@ namespace WBOX
                 var item = new CustomApp();
                 item.enabledCheckbox.IsChecked = customApp.Enabled;
                 item.autoStartCheckbox.IsChecked = customApp.AutoStart;
+                item.allowBootCheckbox.IsChecked = customApp.AllowBoot;
                 item.nameTextBox.Text = customApp.Name;
                 item.pathTextBox.Text = customApp.Path;
                 item.argsTextBox.Text = customApp.Args;
@@ -216,7 +219,7 @@ namespace WBOX
 		private void RefreshSettingChanges()
         {
             defaultBoot_Steam.Visibility = steamButton.Visibility = steamButtonOptions.Visibility = settings.SteamEnabled ? Visibility.Visible : Visibility.Collapsed;
-            defaultBoot_Playnite.Visibility = playniteButton.Visibility = settings.PlayniteEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_Playnite.Visibility = playniteButton.Visibility = playniteButton.Visibility = settings.PlayniteEnabled ? Visibility.Visible : Visibility.Collapsed;
             defaultBoot_GOG.Visibility = gogButton.Visibility = settings.GOGEnabled ? Visibility.Visible : Visibility.Collapsed;
             defaultBoot_Itchio.Visibility = itchioButton.Visibility = settings.ItchioEnabled ? Visibility.Visible : Visibility.Collapsed;
             defaultBoot_Epic.Visibility = epicButton.Visibility = settings.EpicEnabled ? Visibility.Visible : Visibility.Collapsed;
@@ -247,7 +250,7 @@ namespace WBOX
 				button.Click += CustomAppButton_Click;
                 customAppButtonListBox.Items.Add(button);
 
-                if (!customApp.AutoStart)
+                if (!customApp.AutoStart && customApp.AllowBoot)
                 {
                     var radio = new RadioButton();
                     radio.Tag = customApp;
@@ -459,6 +462,8 @@ namespace WBOX
             settings.SteamWindowed = steamWindowedCheckbox.IsChecked == true;
             settings.SteamBorderless = steamBorderlessCheckbox.IsChecked == true;
 
+            settings.PlayniteFullscreen = playniteFullscreenCheckbox.IsChecked == true;
+
             settings.AutoMinimize = autoMinCheckbox.IsChecked == true;
 
             settings.SteamEnabled = steamEnabledCheckbox.IsChecked == true;
@@ -478,6 +483,7 @@ namespace WBOX
                 {
                     Enabled = item.enabledCheckbox.IsChecked == true,
                     AutoStart = item.autoStartCheckbox.IsChecked == true,
+                    AllowBoot = item.allowBootCheckbox.IsChecked == true,
                     Name = item.nameTextBox.Text.Trim(),
                     Path = item.pathTextBox.Text.Trim(),
                     Args = item.argsTextBox.Text.Trim(),
@@ -608,7 +614,8 @@ namespace WBOX
         {
             // get install path
             string userPath = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            string installPath = System.IO.Path.Combine(userPath, @"AppData\Local\Playnite\Playnite.DesktopApp.exe");// default to typical
+            string exe = playniteFullscreenCheckbox.IsChecked == true ? "Playnite.FullscreenApp.exe" : "Playnite.DesktopApp.exe";
+            string installPath = System.IO.Path.Combine(userPath, @"AppData\Local\Playnite\" + exe);// default to typical
             using (var key = Registry.CurrentUser.OpenSubKey(@"Software\Microsoft\Windows\CurrentVersion\Uninstall\Playnite_is1"))
             {
                 if (key != null)
@@ -616,13 +623,13 @@ namespace WBOX
                     var value = key.GetValue("InstallLocation") as string;
                     if (!string.IsNullOrEmpty(value))
                     {
-                        installPath = System.IO.Path.Combine(value, "Playnite.DesktopApp.exe");
+                        installPath = System.IO.Path.Combine(value, exe);
                     }
                 }
             }
 
             // launch
-            LaunchApp(installPath, "", "Playnite.DesktopApp");
+            LaunchApp(installPath, "", System.IO.Path.GetFileNameWithoutExtension(exe));
         }
 
         private void GOGButton_Click(object sender, RoutedEventArgs e)

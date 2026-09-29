@@ -12,6 +12,7 @@ namespace WBOX
 	{
 		public bool Enabled { get; set; }
 		public bool AutoStart { get; set; }
+		public bool AllowBoot { get; set; }
 		public string Name { get; set; }
 		public string Path { get; set; }
 		public string Args { get; set; }
@@ -32,9 +33,12 @@ namespace WBOX
 		public const string DefaultBoot_Polymega = "Polymega";
 
 		public string DefaultBoot { get; set; }
+
 		public bool SteamOptimized { get; set; }
 		public bool SteamWindowed { get; set; }
 		public bool SteamBorderless { get; set; }
+
+		public bool PlayniteFullscreen { get; set; }
 
 		public bool AutoMinimize { get; set; }
 

@@ -42,6 +42,9 @@
 					<CheckBox x:Name="steamBorderlessCheckbox" Content="Borderless" Margin="4,0" ToolTip="Runs Steam with '-noborder' arg"/>
 				</StackPanel>
 				<Button x:Name="playniteButton" Content="Playnite" Margin="4" Click="PlayniteButton_Click"/>
+				<StackPanel x:Name="playniteButtonOptions" Orientation="Horizontal" HorizontalAlignment="Center">
+					<CheckBox x:Name="playniteFullscreenCheckbox" Content="Fullscreen" Margin="4,0" ToolTip="Runs Playnite.FullscreenApp.exe instead of Playnite.DesktopApp.exe" IsChecked="True"/>
+				</StackPanel>
 				<Button x:Name="gogButton" Content="GOG" Margin="4" Click="GOGButton_Click"/>
 				<Button x:Name="itchioButton" Content="Itch.io" Margin="4" Click="ItchioButton_Click"/>
 				<Button x:Name="epicButton" Content="Epic" Margin="4" Click="EpicButton_Click"/>
