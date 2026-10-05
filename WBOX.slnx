@@ -18,6 +18,7 @@
     <Platform Solution="*|x86" Project="x86" />
   </Project>
   <Project Path="WBOX_AutoHDR/WBOX_AutoHDR.vcxproj" Id="45e98bf0-e465-40a2-87f5-30fd77950735">
+    <Platform Solution="*|Any CPU" Project="Win32" />
     <Platform Solution="*|ARM" Project="Win32" />
   </Project>
   <Project Path="WBOX_NativeUtils/WBOX_NativeUtils.vcxproj" Id="c791b0d6-4df3-4767-98eb-133f21abfcfe">
