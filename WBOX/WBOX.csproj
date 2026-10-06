@@ -232,6 +232,9 @@
     <Compile Include="ProcessUtil.cs" />
     <Compile Include="Reg.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="SystemOptimizations.xaml.cs">
+      <DependentUpon>SystemOptimizations.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils.cs" />
     <Compile Include="VirtualHID.cs" />
     <Compile Include="VolumeWindow.xaml.cs">
@@ -264,6 +267,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="SystemOptimizations.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Themes\Dark.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

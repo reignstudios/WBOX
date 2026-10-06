@@ -1,0 +1,15 @@
+﻿<Window x:Class="WBOX.SystemOptimizations"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WBOX"
+        mc:Ignorable="d"
+        Title="System Optimizations" Width="400" Height="200" WindowStyle="ToolWindow" WindowStartupLocation="CenterOwner" ResizeMode="NoResize">
+    <Grid>
+		<CheckBox Name="coreIsolation" Content="Core Isolation" ToolTip="Controls WindowsSecurity->DeviceSecurity/CoreIsolation/MemeoryIntegrity" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="4"/>
+
+		<Button Content="Apply" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="4" Width="100" Height="50" Click="ApplyButton_Click"/>
+		<Button Content="Cancel" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="4" Width="100" Height="50" Click="CancelButton_Click"/>
+	</Grid>
+</Window>

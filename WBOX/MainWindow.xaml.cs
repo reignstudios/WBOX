@@ -878,6 +878,18 @@ namespace WBOX
             }
         }
 
+        private void ScreenSaverButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Process.Start("control", "desk.cpl,,1\r\n");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void SleepButton_Click(object sender, RoutedEventArgs e)
         {
             SaveSettings();
@@ -970,6 +982,13 @@ namespace WBOX
         private void AutoLoginManagerButton_Click(object sender, RoutedEventArgs e)
         {
             var manager = new AutoLoginManager();
+            manager.Owner = this;
+            manager.ShowDialog();
+        }
+
+        private void SystemOptimizationsButton_Click(object sender, RoutedEventArgs e)
+        {
+            var manager = new SystemOptimizations();
             manager.Owner = this;
             manager.ShowDialog();
         }
