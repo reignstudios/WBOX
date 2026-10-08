@@ -234,7 +234,7 @@ namespace WBOX
 		private void RefreshSettingChanges()
         {
             defaultBoot_Steam.Visibility = steamButton.Visibility = steamButtonOptions.Visibility = settings.SteamEnabled ? Visibility.Visible : Visibility.Collapsed;
-            defaultBoot_Playnite.Visibility = playniteButton.Visibility = playniteButton.Visibility = settings.PlayniteEnabled ? Visibility.Visible : Visibility.Collapsed;
+            defaultBoot_Playnite.Visibility = playniteButton.Visibility = playniteButtonOptions.Visibility = settings.PlayniteEnabled ? Visibility.Visible : Visibility.Collapsed;
             defaultBoot_GOG.Visibility = gogButton.Visibility = settings.GOGEnabled ? Visibility.Visible : Visibility.Collapsed;
             defaultBoot_Itchio.Visibility = itchioButton.Visibility = settings.ItchioEnabled ? Visibility.Visible : Visibility.Collapsed;
             defaultBoot_Epic.Visibility = epicButton.Visibility = settings.EpicEnabled ? Visibility.Visible : Visibility.Collapsed;
