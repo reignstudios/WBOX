@@ -601,14 +601,14 @@ namespace WBOX
             string args = "";
 
             // steam mode
-            if (steamWindowedCheckbox.IsChecked == true) args += " -windowed";
+            if (steamWindowedCheckbox.IsChecked == true) args += " -windowed -nofriendsui";
             else args += " -bigpicture";
 
             // borderless game windows
             if (steamBorderlessCheckbox.IsChecked == true) args += " -noborder";
 
             // optimized args
-            if (steamOptimizedCheckbox.IsChecked == true) args += " -no-browser";
+            if (steamOptimizedCheckbox.IsChecked == true) args += " -vrdisable -no-browser +open steam://open/minigameslist";
 
             // get install path
             string installPath = @"C:\Program Files (x86)\Steam\steam.exe";// default to typical
