@@ -83,8 +83,9 @@ namespace WBOX
             {
                 var item = new CustomApp();
                 item.enabledCheckbox.IsChecked = customApp.Enabled;
-                item.autoStartCheckbox.IsChecked = customApp.AutoStart;
                 item.allowBootCheckbox.IsChecked = customApp.AllowBoot;
+                item.autoStartCheckbox.IsChecked = customApp.AutoStart;
+                item.watchCheckbox.IsChecked = customApp.Watch;
                 item.nameTextBox.Text = customApp.Name;
                 item.pathTextBox.Text = customApp.Path;
                 item.argsTextBox.Text = customApp.Args;
@@ -265,7 +266,7 @@ namespace WBOX
 				button.Click += CustomAppButton_Click;
                 customAppButtonListBox.Items.Add(button);
 
-                if (!customApp.AutoStart && customApp.AllowBoot)
+                if (customApp.AllowBoot && !customApp.AutoStart)
                 {
                     var radio = new RadioButton();
                     radio.Tag = customApp;
@@ -279,7 +280,7 @@ namespace WBOX
 		private void CustomAppButton_Click(object sender, RoutedEventArgs e)
 		{
 			var customApp = (CustomAppSettings)((Button)sender).Tag;
-            LaunchApp(customApp.Path, customApp.Args, System.IO.Path.GetFileNameWithoutExtension(customApp.Path));
+            LaunchApp(customApp.Path, customApp.Args, customApp.Watch ? System.IO.Path.GetFileNameWithoutExtension(customApp.Path) : null);
 		}
 
 		private void InputThread()
@@ -497,8 +498,9 @@ namespace WBOX
                 var customAppSetting = new CustomAppSettings()
                 {
                     Enabled = item.enabledCheckbox.IsChecked == true,
-                    AutoStart = item.autoStartCheckbox.IsChecked == true,
                     AllowBoot = item.allowBootCheckbox.IsChecked == true,
+                    AutoStart = item.autoStartCheckbox.IsChecked == true,
+                    Watch = item.watchCheckbox.IsChecked == true,
                     Name = item.nameTextBox.Text.Trim(),
                     Path = item.pathTextBox.Text.Trim(),
                     Args = item.argsTextBox.Text.Trim(),
@@ -562,7 +564,7 @@ namespace WBOX
                 {
                     ProcessUtil.ForceForegroundAsync(watchedProcess);
                 }
-                else// minimize window to reduce overhead
+                else if (autoMinCheckbox.IsChecked == true && !string.IsNullOrEmpty(watchedProcessName))// minimize window to reduce overhead
                 {
                     WindowState = WindowState.Minimized;
                     minButton.Visibility = Visibility.Visible;
